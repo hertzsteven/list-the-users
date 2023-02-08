@@ -20,6 +20,13 @@ final class ApiManager {
     func getData<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D {
         let request = try createRequest(from: endpoint)
         let response: NetworkResponse = try await session.data(for: request)
+//        dump(response.data)
+//        do {
+//          let json = try JSONSerialization.jsonObject(with: response.data, options: [])
+//          print(json)
+//        } catch {
+//          print("Error while converting data to JSON: \(error)")
+//        }
         return try decoder.decode(D.self, from: response.data)
     }
     

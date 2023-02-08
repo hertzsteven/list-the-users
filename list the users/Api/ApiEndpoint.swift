@@ -17,7 +17,7 @@ enum ApiEndpoint {
     }
     
     /// Define all your endpoints here
-    case users
+    case getUsers
 }
 
 extension ApiEndpoint {
@@ -25,7 +25,7 @@ extension ApiEndpoint {
     /// The path for every endpoint
     var path: String {
         switch self {
-        case .users:
+        case .getUsers:
            return "/users"
         }
     }

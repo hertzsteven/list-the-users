@@ -10,24 +10,29 @@ class UsersViewModel: ObservableObject {
     @Published var users = [User]()
     @Published var isLoading = false
 
+    init() {
+        loadData()
+    }
     /*
     private let networkManager = NetworkManager()
-    
+    */
     func loadData() {
         guard !isLoading else { return }
         
         isLoading = true
-        networkManager.fetchUsers { [weak self] (users, error) in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let users = users {
-                self.users = users
-                self.isLoading = false
+     
+        Task {
+            do {
+                let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
+                DispatchQueue.main.async {
+                    self.users = resposnse.users
+                    dump(self.users)
+                }
+            } catch {
+               print(error.localizedDescription)
             }
         }
     }
-    */
+
     
 }
