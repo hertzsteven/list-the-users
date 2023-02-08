@@ -11,5 +11,5 @@ import Foundation
     struct ApiHelper {
         
         /// API Base URL
-        static let baseURL = ""
+        static let baseURL = "https://developitsnfrEDU.jamfcloud.com/api"
     }
