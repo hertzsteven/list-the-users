@@ -9,7 +9,8 @@ import SwiftUI
 
 struct UserListContent: View {
     
-    @StateObject var usersViewModel = UsersViewModel()
+    @EnvironmentObject var usersViewModel: UsersViewModel
+//    @StateObject var usersViewModel = UsersViewModel()
     
     @State var newUser: User
     @State private var isAddingNewUser = false
@@ -24,7 +25,8 @@ struct UserListContent: View {
                 
             }
             .listStyle(.plain)
-            .navigationTitle("Users")
+            
+            .navigationTitle("🧒👦🏾👧🏼 Students")
             .toolbar {
                         ToolbarItem {
                             Button {
