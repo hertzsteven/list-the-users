@@ -7,23 +7,43 @@
 
 import Foundation
 
-struct User: Codable, Identifiable {
-    let id:             Int
-    let locationId:     Int
-    let deviceCount:    Int
-    let email:          String 
-    let groupIds:       Array<Int>
-    let groups:         Array<String>
-    let firstName:      String
-    let lastName:       String
-    let username:       String
-    let notes:          String
-    let modified:       String
+struct User: Codable, Identifiable, Hashable {
+    var id:             Int
+    var locationId:     Int
+    var deviceCount:    Int
+    var email:          String
+    var groupIds:       Array<Int>
+    var groups:         Array<String>
+    var firstName:      String
+    var lastName:       String
+    var username:       String
+    var notes:          String
+    var modified:       String
 }
 
 extension User {
     static func makeDefault() -> User {
-        User(id: 0, locationId: 0, deviceCount: 0, email: "", groupIds: [], groups: [""], firstName: "", lastName: "", username: "", notes: "", modified: "")
+        
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+
+        let year = components.year!
+        let month = components.month!
+        let day = components.day!
+        let hour = components.hour!
+        let minute = components.minute!
+        let second = components.second!
+
+        let startOfToday = DateComponents(calendar: calendar, year: year, month: month, day: day).date!
+        let elapsedTime = date.timeIntervalSince(startOfToday)
+
+        let totalSeconds = Int(elapsedTime) + (hour * 60 * 60) + (minute * 60) + second
+
+//        print("Total seconds from the start of today: \(totalSeconds)")
+
+        
+        return User(id: totalSeconds, locationId: 0, deviceCount: 0, email: "", groupIds: [], groups: [""], firstName: "", lastName: "", username: "", notes: "", modified: "")
     }
 }
 
