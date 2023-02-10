@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserDetailContent: View {
     
+    
     @Binding var user: User
     @Binding var isDeleted: Bool
     @Binding var isNew: Bool
@@ -18,11 +19,13 @@ struct UserDetailContent: View {
     
     @State private var isPickingSymbol = false
     
-//    @FocusState var focusedTask: EventTask?
-
-
     
-//    var user: User
+    let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+
  
     var body: some View {
         List {
@@ -31,9 +34,29 @@ struct UserDetailContent: View {
                     TextField("New User", text: $user.username)
                         .font(.title2)
                 }
-                .padding(.top, 5)
-                Text("Something")
+                .padding([.top, .bottom], 8)
+                TextField("First Name", text: $user.firstName )
+                    .padding([.top, .bottom], 8)
+                    .textFieldStyle(.roundedBorder)
+                
+                TextField("Last Name", text: $user.lastName )
+                    .padding([.top, .bottom], 8)
+//               TextField("Location", text: $user.locationId )
+                TextField("Location", value: $user.locationId, formatter: formatter)
+                    .padding([.top, .bottom], 8)
+//                TextField("ID", text: $user.id )
+//                    .padding([.top, .bottom], 8)
+                TextField("Notes", text: $user.notes )
+                    .padding([.top, .bottom], 8)
+                TextField("Modified", text: $user.modified )
+                    .padding([.top, .bottom], 8)
+//                TextField("device count", text: $user.deviceCount )
+//                    .padding([.top, .bottom], 8)
+                TextField("email", text: $user.email )
+                    .padding([.top, .bottom], 8)
+                 Text("Something")
                     .fontWeight(.bold)
+                
             }
             
             if !isNew {
@@ -57,16 +80,16 @@ struct UserDetailContent: View {
     
 //    var body: some View {
 //        VStack(spacing:15) {
-//            Text("Hello, \(user.username)!")
-//            Text("First Name: \(user.firstName)")
-//            Text("Last Name: \(user.lastName)")
-//            Text("Location: \(user.locationId)")
-//            Text("ID: \(user.id)")
-//            Text("Notes: \(user.notes)")
-//            Text("Modified: \(user.modified)")
-//            Text("device count: \(user.deviceCount)")
-//            Text("email: \(user.email)")
-//        }
+//            TextField("Hello, \(user.username)!")
+//            TextField("First Name: \(user.firstName)")
+//            TextField("Last Name: \(user.lastName)")
+//            TextField("Location: \(user.locationId)")
+//            TextField("ID: \(user.id)")
+//            TextField("Notes: \(user.notes)")
+//            TextField("Modified: \(user.modified)")
+//            TextField("device count: \(user.deviceCount)")
+//            TextField("email: \(user.email)")
+//        }Field
 //
 //    }
 }
