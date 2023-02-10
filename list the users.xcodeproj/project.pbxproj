@@ -23,6 +23,8 @@
 		46584FE72993F0960025F539 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46584FE62993F0960025F539 /* ApiHelper.swift */; };
 		46584FE92993F0C40025F539 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46584FE82993F0C40025F539 /* ApiError.swift */; };
 		46584FEB2993F10F0025F539 /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46584FEA2993F10F0025F539 /* ApiEndpoint.swift */; };
+		46E56DB12995E1C000CB2512 /* TestOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DB02995E1C000CB2512 /* TestOutView.swift */; };
+		46E56DB42996977A00CB2512 /* AuthenticateReturnObjct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DB32996977A00CB2512 /* AuthenticateReturnObjct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		46584FE62993F0960025F539 /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
 		46584FE82993F0C40025F539 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		46584FEA2993F10F0025F539 /* ApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoint.swift; sourceTree = "<group>"; };
+		46E56DB02995E1C000CB2512 /* TestOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOutView.swift; sourceTree = "<group>"; };
+		46E56DB32996977A00CB2512 /* AuthenticateReturnObjct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateReturnObjct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,9 +73,10 @@
 			isa = PBXGroup;
 			children = (
 				46584FCB2993E1040025F539 /* UserListContent.swift */,
-				4633670129942D2C00CF5EA3 /* TabBarController.swift */,
 				463367062995251000CF5EA3 /* UserEditorContent.swift */,
 				463366FF299426A900CF5EA3 /* UserDetailContent.swift */,
+				4633670129942D2C00CF5EA3 /* TabBarController.swift */,
+				46E56DB02995E1C000CB2512 /* TestOutView.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 		46584FD72993EA9C0025F539 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46E56DB22996974400CB2512 /* TeacherAuthentication */,
 				46584FD92993EAC40025F539 /* User */,
 				46584FD82993EAAC0025F539 /* Users */,
 			);
@@ -159,6 +165,14 @@
 				46584FEA2993F10F0025F539 /* ApiEndpoint.swift */,
 			);
 			path = Api;
+			sourceTree = "<group>";
+		};
+		46E56DB22996974400CB2512 /* TeacherAuthentication */ = {
+			isa = PBXGroup;
+			children = (
+				46E56DB32996977A00CB2512 /* AuthenticateReturnObjct.swift */,
+			);
+			path = TeacherAuthentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,7 +253,9 @@
 				46584FDB2993EAF40025F539 /* User.swift in Sources */,
 				46584FDD2993EB650025F539 /* UserResponse.swift in Sources */,
 				46584FE52993F03C0025F539 /* ApiManager.swift in Sources */,
+				46E56DB12995E1C000CB2512 /* TestOutView.swift in Sources */,
 				46336700299426A900CF5EA3 /* UserDetailContent.swift in Sources */,
+				46E56DB42996977A00CB2512 /* AuthenticateReturnObjct.swift in Sources */,
 				46584FE92993F0C40025F539 /* ApiError.swift in Sources */,
 				46584FDF2993ECD50025F539 /* UsersViewModel.swift in Sources */,
 				46336705299452A600CF5EA3 /* CustomLabelStyle.swift in Sources */,

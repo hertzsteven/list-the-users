@@ -19,15 +19,15 @@ struct TabBarController : View {
 //                    Text("Students")
                 }
 
-            Text("Outgoing Phone Calls")
+            TestOutView()
                 .tabItem {
-                    
                     Image(systemName: "phone.arrow.up.right")
                     Text("Outgoing")
                 }
         }
     }
 }
+
 
 struct TabBarController_Previews: PreviewProvider {
     static var previews: some View {
