@@ -69,7 +69,7 @@ private extension ApiManager {
         case .authenticateTeacher(company: let company, username: let username, password: let password):
             request.addValue("Basic NjUzMTkwNzY6TUNTTUQ2VkM3TUNLVU5OOE1KNUNEQTk2UjFIWkJHQVY=", forHTTPHeaderField: "Authorization")
             request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
-            request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             request.addValue("hash=d687b1f23f348e501ab1947f47f66310", forHTTPHeaderField: "Cookie")
             let bodyObject: [String : Any] = [
                 "company": company,
@@ -78,6 +78,15 @@ private extension ApiManager {
             ]
             request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
             
+        case .getaUser(let id):
+            request.addValue("Basic NjUzMTkwNzY6TUNTTUQ2VkM3TUNLVU5OOE1KNUNEQTk2UjFIWkJHQVY=", forHTTPHeaderField: "Authorization")
+            request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
+            
+        case .getSchoolClasses:
+            request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
+            request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
+            request.addValue("hash=5fd0a563b23bd04f5dbf78a49962614e", forHTTPHeaderField: "Cookie")
+
         }
         
         return request

@@ -18,32 +18,38 @@ struct UserListContent: View {
     	
     var body: some View {
         NavigationView {
-            List {
-                ForEach (usersViewModel.sortedUsers()) { $theUser in
+            Section{
+                List(usersViewModel.sortedUsers()) { $theUser in
+                        //            List {
+                        //                ForEach (usersViewModel.sortedUsers()) { $theUser in
                     NavigationLink {
                         UserEditorContent(user: $theUser)
                     } label: {
                         HStack {
                             Label("\(theUser.firstName) \(theUser.lastName)", systemImage: "person.circle")
                                 .labelStyle(CustomLabelStyle())
-        //                    Image(systemName: "person.circle.fill").foregroundColor(.blue)
-        //                    Text(user.firstName)
-        //                    Text(user.lastName)
-        //                    Text("\(user.deviceCount) devices")
+                                //                    Image(systemName: "person.circle.fill").foregroundColor(.blue)
+                                //                    Text(user.firstName)
+                                //                    Text(user.lastName)
+                                //                    Text("\(user.deviceCount) devices")
                             Spacer()
                         }
                         .foregroundColor(Color.primary)
                         .font(.body)
                         .padding([.top, .bottom],10)
                     }
-//                    CustomRow(user: $theUser)
-//                    Text("mm")
+                    
+                        //                    CustomRow(user: $theUser)
+                        //                    Text("mm")
+                        //                }
                 }
+                .listStyle(.plain)
                 
+                .navigationTitle("🧒👦🏾👧🏼 Students")
+                .onAppear { print("🟢 OnAppear") }
+                .onDisappear { print("🟢 OnDisappear") }
+
             }
-            .listStyle(.plain)
-            
-            .navigationTitle("🧒👦🏾👧🏼 Students")
             .toolbar {
                         ToolbarItem {
                             Button {
@@ -62,6 +68,8 @@ struct UserListContent: View {
                         }
                     }
 
+        }.onAppear {
+            print("in on appear")
         }
     }
 }

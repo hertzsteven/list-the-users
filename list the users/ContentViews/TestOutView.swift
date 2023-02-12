@@ -18,6 +18,17 @@ struct TestOutView: View {
                         let resposnse: AuthenticateReturnObjct = try await ApiManager.shared.getData(from: .authenticateTeacher(company: "2001128", username: "teacherlila", password: "123456"))
                         dump(resposnse)
                         print("break")
+                        let resposnseUserDetail: UserDetailResponse = try await ApiManager.shared.getData(from: .getaUser(id: resposnse.authenticatedAs.id))
+                        dump(resposnseUserDetail)
+                        print("fkffkkf")
+                        let resposnseSchoolClasses: SchoolClassResponse = try await ApiManager.shared.getData(from: .getSchoolClasses)
+                        dump(resposnseSchoolClasses)
+                        print("fkffkkf")
+                        let cls = resposnseSchoolClasses.classes.contains {clss in
+                            clss.userGroupId == 1
+                        }
+                        dump(cls)
+
 //                        DispatchQueue.main.async {
 //                            self.users = resposnse.users
 //                            dump(self.users)
@@ -25,7 +36,9 @@ struct TestOutView: View {
                     } catch {
                        print(error.localizedDescription)
                     }
+                    
                     print("in task afetr do")
+                    
                 }
                 print("after task")
             } label: {

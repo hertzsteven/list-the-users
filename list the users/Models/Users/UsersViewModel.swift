@@ -22,7 +22,7 @@ class UsersViewModel: ObservableObject {
                 let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
                 DispatchQueue.main.async {
                     self.users = resposnse.users
-                    dump(self.users)
+//                    dump(self.users)
                 }
             } catch {
                print(error.localizedDescription)

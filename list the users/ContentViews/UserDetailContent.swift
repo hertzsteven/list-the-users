@@ -17,7 +17,9 @@ struct UserDetailContent: View {
     @EnvironmentObject var usersViewModel: UsersViewModel
     @Environment(\.dismiss) private var dismiss
     
-    @State private var isPickingSymbol = false
+    
+    
+//    @State private var isPickingSymbol = false
     
     
     let formatter: NumberFormatter = {
@@ -33,6 +35,10 @@ struct UserDetailContent: View {
                 HStack {
                     TextField("New User", text: $user.username)
                         .font(.title2)
+                        .onDisappear {
+                              print("xxxxxx")
+                          }
+
                 }
                 .padding([.top, .bottom], 8)
                 TextField("First Name", text: $user.firstName )
@@ -40,6 +46,7 @@ struct UserDetailContent: View {
                     .textFieldStyle(.roundedBorder)
                 
                 TextField("Last Name", text: $user.lastName )
+ 
                     .padding([.top, .bottom], 8)
 //               TextField("Location", text: $user.locationId )
                 TextField("Location", value: $user.locationId, formatter: formatter)
@@ -58,6 +65,7 @@ struct UserDetailContent: View {
                     .fontWeight(.bold)
                 
             }
+ 
             
             if !isNew {
                 Button(role: .destructive, action: {
@@ -72,6 +80,11 @@ struct UserDetailContent: View {
                 .frame(maxWidth: .infinity, alignment: .center)
             }
         }
+        .onDisappear {
+              print("xxxxxx")
+          }
+
+
 
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)

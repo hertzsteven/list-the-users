@@ -25,6 +25,9 @@
 		46584FEB2993F10F0025F539 /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46584FEA2993F10F0025F539 /* ApiEndpoint.swift */; };
 		46E56DB12995E1C000CB2512 /* TestOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DB02995E1C000CB2512 /* TestOutView.swift */; };
 		46E56DB42996977A00CB2512 /* AuthenticateReturnObjct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DB32996977A00CB2512 /* AuthenticateReturnObjct.swift */; };
+		46E56DB729969F5600CB2512 /* UserDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DB629969F5600CB2512 /* UserDetailResponse.swift */; };
+		46E56DBA2996B33800CB2512 /* ClassDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DB92996B33800CB2512 /* ClassDetailResponse.swift */; };
+		46E56DBD2996B42500CB2512 /* SchoolClassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DBC2996B42500CB2512 /* SchoolClassResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +51,9 @@
 		46584FEA2993F10F0025F539 /* ApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoint.swift; sourceTree = "<group>"; };
 		46E56DB02995E1C000CB2512 /* TestOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOutView.swift; sourceTree = "<group>"; };
 		46E56DB32996977A00CB2512 /* AuthenticateReturnObjct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateReturnObjct.swift; sourceTree = "<group>"; };
+		46E56DB629969F5600CB2512 /* UserDetailResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailResponse.swift; sourceTree = "<group>"; };
+		46E56DB92996B33800CB2512 /* ClassDetailResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailResponse.swift; sourceTree = "<group>"; };
+		46E56DBC2996B42500CB2512 /* SchoolClassResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolClassResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,10 @@
 		46584FD72993EA9C0025F539 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46E56DBE2996B63A00CB2512 /* SchoolClassDetail */,
+				46E56DBB2996B3FF00CB2512 /* SchoolClasses */,
+				46E56DB82996B31200CB2512 /* ClassDetail */,
+				46E56DB529969F3F00CB2512 /* UserDetail */,
 				46E56DB22996974400CB2512 /* TeacherAuthentication */,
 				46584FD92993EAC40025F539 /* User */,
 				46584FD82993EAAC0025F539 /* Users */,
@@ -173,6 +183,37 @@
 				46E56DB32996977A00CB2512 /* AuthenticateReturnObjct.swift */,
 			);
 			path = TeacherAuthentication;
+			sourceTree = "<group>";
+		};
+		46E56DB529969F3F00CB2512 /* UserDetail */ = {
+			isa = PBXGroup;
+			children = (
+				46E56DB629969F5600CB2512 /* UserDetailResponse.swift */,
+			);
+			path = UserDetail;
+			sourceTree = "<group>";
+		};
+		46E56DB82996B31200CB2512 /* ClassDetail */ = {
+			isa = PBXGroup;
+			children = (
+				46E56DB92996B33800CB2512 /* ClassDetailResponse.swift */,
+			);
+			path = ClassDetail;
+			sourceTree = "<group>";
+		};
+		46E56DBB2996B3FF00CB2512 /* SchoolClasses */ = {
+			isa = PBXGroup;
+			children = (
+				46E56DBC2996B42500CB2512 /* SchoolClassResponse.swift */,
+			);
+			path = SchoolClasses;
+			sourceTree = "<group>";
+		};
+		46E56DBE2996B63A00CB2512 /* SchoolClassDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SchoolClassDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +291,10 @@
 				463367072995251000CF5EA3 /* UserEditorContent.swift in Sources */,
 				46584FCA2993E1040025F539 /* list_the_usersApp.swift in Sources */,
 				4633670229942D2C00CF5EA3 /* TabBarController.swift in Sources */,
+				46E56DBA2996B33800CB2512 /* ClassDetailResponse.swift in Sources */,
+				46E56DB729969F5600CB2512 /* UserDetailResponse.swift in Sources */,
 				46584FDB2993EAF40025F539 /* User.swift in Sources */,
+				46E56DBD2996B42500CB2512 /* SchoolClassResponse.swift in Sources */,
 				46584FDD2993EB650025F539 /* UserResponse.swift in Sources */,
 				46584FE52993F03C0025F539 /* ApiManager.swift in Sources */,
 				46E56DB12995E1C000CB2512 /* TestOutView.swift in Sources */,

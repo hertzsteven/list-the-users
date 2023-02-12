@@ -25,6 +25,11 @@ struct UserEditorContent: View {
     var body: some View {
         VStack {
             UserDetailContent(user: $userCopy, isDeleted: $isDeleted, isNew: $isNew)
+            .onDisappear {
+                 print("left editor")
+             }
+
+
                 .toolbar(content: {
                     ToolbarItem(placement: .cancellationAction) {
                         if isNew {
@@ -47,13 +52,23 @@ struct UserEditorContent: View {
                 })
                 .onAppear {
                     userCopy = user
+                    print("in on appear")
                 }
                 .onChange(of: userCopy){ _ in
                     if !isDeleted {
                         user = userCopy
                     }
                 }
+                .onDisappear {
+                    print("xxxxxx")
+                }
+            
+
         }
+        .onDisappear {
+            print("xxxxxx")
+        }
+
         .overlay(alignment: .center) {
             if isUserDeleted {
                 Color(UIColor.systemBackground)
@@ -61,7 +76,12 @@ struct UserEditorContent: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .onDisappear {
+              print("xxxxxx")
+          }
+
     }
+ 
     
 }
 

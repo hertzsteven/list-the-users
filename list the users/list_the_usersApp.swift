@@ -13,7 +13,7 @@ struct list_the_usersApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabBarController()
+            UserListContent(newUser: User.makeDefault())
                 .environmentObject(usersViewModel)
         }
     }

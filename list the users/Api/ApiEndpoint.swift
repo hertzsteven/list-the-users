@@ -18,8 +18,10 @@ enum ApiEndpoint {
     
     /// Define all your endpoints here
     case getUsers
+    case getaUser(id: Int)
     case getStudents
     case authenticateTeacher(company: String, username:String, password: String)
+    case getSchoolClasses
 }
 
 extension ApiEndpoint {
@@ -33,6 +35,10 @@ extension ApiEndpoint {
             return ""
         case .authenticateTeacher(company: let _, username: let _, password: let _):
             return "/teacher/authenticate"
+        case .getaUser(let id):
+            return "/users/\(id)"
+        case .getSchoolClasses:
+            return "/classes"
         }
     }
     
