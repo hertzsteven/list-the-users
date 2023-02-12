@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct UserEditorContent: View {
+    @State var  user_start: User = User.makeDefault()
+    
     @Binding var user: User
     
     @State var isNew = false
@@ -26,7 +28,14 @@ struct UserEditorContent: View {
         VStack {
             UserDetailContent(user: $userCopy, isDeleted: $isDeleted, isNew: $isNew)
             .onDisappear {
-                 print("left editor")
+                print("🚘 In on disAppear -UserEditorContent zero \(user.firstName) ")
+                if user_start == user {
+                    print("its the same")
+                    dump(user_start)
+                    dump(user)
+                } else {
+                    print("its different")
+                }
              }
 
 
@@ -52,7 +61,8 @@ struct UserEditorContent: View {
                 })
                 .onAppear {
                     userCopy = user
-                    print("in on appear")
+                    user_start = user
+                    print("🚘 In on Appear - UserEditorContent ")
                 }
                 .onChange(of: userCopy){ _ in
                     if !isDeleted {
@@ -60,13 +70,13 @@ struct UserEditorContent: View {
                     }
                 }
                 .onDisappear {
-                    print("xxxxxx")
+//                    print("🚘 In on disAppear -UserEditorContent first \(user.firstName) ")
                 }
             
 
         }
         .onDisappear {
-            print("xxxxxx")
+//            print("🚘 In on disAppear -UserEditorContent second \(user.firstName)")
         }
 
         .overlay(alignment: .center) {
@@ -76,10 +86,6 @@ struct UserEditorContent: View {
                     .foregroundStyle(.secondary)
             }
         }
-        .onDisappear {
-              print("xxxxxx")
-          }
-
     }
  
     

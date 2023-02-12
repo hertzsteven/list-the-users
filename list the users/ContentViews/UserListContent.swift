@@ -46,8 +46,8 @@ struct UserListContent: View {
                 .listStyle(.plain)
                 
                 .navigationTitle("🧒👦🏾👧🏼 Students")
-                .onAppear { print("🟢 OnAppear") }
-                .onDisappear { print("🟢 OnDisappear") }
+                .onAppear { print("🟢 OnAppear - list view") }
+                .onDisappear { print("🟢 OnDisappear - list view") }
 
             }
             .toolbar {
@@ -64,12 +64,9 @@ struct UserListContent: View {
                     .sheet(isPresented: $isAddingNewUser) {
 //                        Text("hello all")
                         NavigationView {
-                            UserEditorContent(user: $newUser, isNew: true)
+                            UserEditorContent( user: $newUser, isNew: true)
                         }
                     }
-
-        }.onAppear {
-            print("in on appear")
         }
     }
 }

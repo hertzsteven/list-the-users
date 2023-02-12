@@ -35,10 +35,6 @@ struct UserDetailContent: View {
                 HStack {
                     TextField("New User", text: $user.username)
                         .font(.title2)
-                        .onDisappear {
-                              print("xxxxxx")
-                          }
-
                 }
                 .padding([.top, .bottom], 8)
                 TextField("First Name", text: $user.firstName )
@@ -80,9 +76,6 @@ struct UserDetailContent: View {
                 .frame(maxWidth: .infinity, alignment: .center)
             }
         }
-        .onDisappear {
-              print("xxxxxx")
-          }
 
 
 
