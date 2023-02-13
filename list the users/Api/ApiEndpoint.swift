@@ -22,6 +22,7 @@ enum ApiEndpoint {
     case getStudents
     case authenticateTeacher(company: String, username:String, password: String)
     case getSchoolClasses
+    case addUser
 }
 
 extension ApiEndpoint {
@@ -39,6 +40,8 @@ extension ApiEndpoint {
             return "/users/\(id)"
         case .getSchoolClasses:
             return "/classes"
+        case .addUser:
+            return "/users"
         }
     }
     
@@ -46,6 +49,8 @@ extension ApiEndpoint {
     var method: ApiEndpoint.Method {
         switch self {
         case .authenticateTeacher(company: let _, username: let _, password: let _):
+            return .POST
+        case .addUser:
             return .POST
         default:
             return .GET

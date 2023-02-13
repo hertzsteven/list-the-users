@@ -169,10 +169,10 @@
 		46584FE32993EFEF0025F539 /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				46584FEA2993F10F0025F539 /* ApiEndpoint.swift */,
 				46584FE42993F03C0025F539 /* ApiManager.swift */,
 				46584FE62993F0960025F539 /* ApiHelper.swift */,
 				46584FE82993F0C40025F539 /* ApiError.swift */,
-				46584FEA2993F10F0025F539 /* ApiEndpoint.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";

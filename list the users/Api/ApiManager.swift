@@ -16,6 +16,20 @@ final class ApiManager {
     private let session = URLSession.shared
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
+    
+    func getDataNoDecode(from endpoint: ApiEndpoint) async throws -> NetworkResponse  {
+        let request = try createRequest(from: endpoint)
+        let response: NetworkResponse = try await session.data(for: request)
+//        dump(response.data)
+//        do {
+//          let json = try JSONSerialization.jsonObject(with: response.data, options: [])
+//          print(json)
+//        } catch {
+//          print("Error while converting data to JSON: \(error)")
+//        }
+        return response
+    }
+    
       
     func getData<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D {
         let request = try createRequest(from: endpoint)
@@ -86,6 +100,44 @@ private extension ApiManager {
             request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
             request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
             request.addValue("hash=5fd0a563b23bd04f5dbf78a49962614e", forHTTPHeaderField: "Cookie")
+
+        case .addUser:
+            request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
+            request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
+            request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            
+//            let bodyString = "{\n   \"username\": \"zxzxcfrankmunchkin\",\n   \"password\": \"@P3Passw0rd\",\n   \"email\": \"fmunchkin@jamfschool.com\",\n   \"firstName\": \"frank\",\n   \"lastName\": \"Munchkin\",\n   \"memberOf\": [\n      \"This will be a new group\",\n      1\n   ],\n   \"locationId\": 0\n}"
+            let bodyString = """
+            {
+               "username": "eiehiihiodhiwdhidhoqwdihoqihqwd",
+               "password": "@P3Paddssw0rd",
+               "email": "deejjodijowjdpqwdjopwjdo@jamfschool.com",
+               "firstName": "oooooooooo",
+               "lastName": "mmmmmmmmmm",
+               "memberOf": [
+                  "This will be a new group",
+                  1
+               ],
+               "locationId": 0
+            }
+            """
+
+            request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
+
+//
+//            let bodyObject: [String : Any] = [
+//                "username": "zxzxcfrankmunchkin",
+//                "password": "@P3Passw0rd",
+//                "email": "fmunchkin@jamfschool.com",
+//                "firstName": "frank",
+//                "lastName": "Munchkin",
+//                "memberOf": [
+//                   "This will be a new group",
+//                   1
+//                ],
+//                "locationId": 0
+//            ]
+//            request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
 
         }
         
