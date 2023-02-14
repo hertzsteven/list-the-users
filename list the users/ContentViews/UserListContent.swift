@@ -78,6 +78,7 @@ struct UserListContent: View {
                                     
                                 } catch let error as ApiError {
                                     print(error.description)
+                                    presentAlertSw.toggle()
                                 }
                             }
                             
