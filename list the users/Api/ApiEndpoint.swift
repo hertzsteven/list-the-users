@@ -34,7 +34,7 @@ extension ApiEndpoint {
            return "/users"
         case .getStudents:
             return ""
-        case .authenticateTeacher(company: let _, username: let _, password: let _):
+        case .authenticateTeacher(company: _, username: _, password: _):
             return "/teacher/authenticate"
         case .getaUser(let id):
             return "/users/\(id)"
@@ -48,7 +48,7 @@ extension ApiEndpoint {
     /// The method for the endpoint
     var method: ApiEndpoint.Method {
         switch self {
-        case .authenticateTeacher(company: let _, username: let _, password: let _):
+        case .authenticateTeacher(company: _, username: _, password: _):
             return .POST
         case .addUser:
             return .POST
@@ -56,6 +56,26 @@ extension ApiEndpoint {
             return .GET
         }
     }
+    
+//    var requestHeaders: [String:String] {
+//        switch self {
+//        case .getUsers, .getStudents:
+//            return ["Authorization": "Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=",
+//                    "Content-Type": "application/json",
+//                    "X-Server-Protocol-Version": "2"
+//            ]
+//        case .getaUser(let id):
+//            <#code#>
+////        case .getStudents:
+////            <#code#>
+//        case .authenticateTeacher(let company, let username, let password):
+//            <#code#>
+//        case .getSchoolClasses:
+//            <#code#>
+//        case .addUser:
+//            <#code#>
+//        }
+//    }
     
     /// The URL parameters for the endpoint (in case it has any)
     var parameters: [URLQueryItem]? {

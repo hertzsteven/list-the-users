@@ -20,13 +20,6 @@ final class ApiManager {
     func getDataNoDecode(from endpoint: ApiEndpoint) async throws -> NetworkResponse  {
         let request = try createRequest(from: endpoint)
         let response: NetworkResponse = try await session.data(for: request)
-//        dump(response.data)
-//        do {
-//          let json = try JSONSerialization.jsonObject(with: response.data, options: [])
-//          print(json)
-//        } catch {
-//          print("Error while converting data to JSON: \(error)")
-//        }
         return response
     }
     
@@ -106,7 +99,6 @@ private extension ApiManager {
             request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
             request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
             
-//            let bodyString = "{\n   \"username\": \"zxzxcfrankmunchkin\",\n   \"password\": \"@P3Passw0rd\",\n   \"email\": \"fmunchkin@jamfschool.com\",\n   \"firstName\": \"frank\",\n   \"lastName\": \"Munchkin\",\n   \"memberOf\": [\n      \"This will be a new group\",\n      1\n   ],\n   \"locationId\": 0\n}"
             let bodyString = """
             {
                "username": "eiehiihiodhiwdhidhoqwdihoqihqwd",
