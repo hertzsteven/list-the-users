@@ -11,34 +11,36 @@ class UsersViewModel: ObservableObject {
     @Published var isLoading = false
 
     init() {
-        loadData()
+//        loadData()
     }
 
 //  FIXME: -  Make a static var that returns a loaded UsersViewModel
 //             make sure onAppear only loads it once so I will have a switch that will be set false and it will ensure onlt load once
 
-    init(loadIt: Bool = true) {
-        if loadIt {
-            loadData()
-        }
-    }
+//    init(loadIt: Bool = true) {
+//        if loadIt {
+//            loadData()
+//        }
+//    }
 
-
     
-    
-    
-    func loadData() {
+    func loadData() throws {
         guard !isLoading else { return }
         isLoading = true
         Task {
-            do {
-                let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
-                DispatchQueue.main.async {
-                    self.users = resposnse.users
-                }
-            } catch {
-               print(error.localizedDescription)
+            let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
+            DispatchQueue.main.async {
+                self.users = resposnse.users
             }
+
+//            do {
+//                let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
+//                DispatchQueue.main.async {
+//                    self.users = resposnse.users
+//                }
+//            } catch let error  as ApiError {
+//                print(error.description)
+//            }
         }
     }
     

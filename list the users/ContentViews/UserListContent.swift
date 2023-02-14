@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct UserListContent: View {
     
     @State private var presentAlertSw: Bool = false
@@ -15,6 +16,8 @@ struct UserListContent: View {
     
     @State var newUser: User
     @State private var isAddingNewUser = false
+    
+    @State var usersAreLoaded: Bool = false
         	
     var body: some View {
         NavigationView {
@@ -59,6 +62,28 @@ struct UserListContent: View {
                     .alert(isPresented:$presentAlertSw) {
                         getAlert()
                     }
+//                    .onAppear {
+//                        try usersViewModel.loadData()
+//                    }
+                    .task {
+                        if !usersAreLoaded {
+                            print("🚘 In Task")
+                            Task {
+                                do {
+                                    let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
+                                    self.usersViewModel.users = resposnse.users
+                                    self.usersAreLoaded.toggle()
+                                        //                                dump(resposnse)
+                                        //                                print("break")
+                                    
+                                } catch let error as ApiError {
+                                    print(error.description)
+                                }
+                            }
+                            
+                         }
+                    }
+                    
         }
     }
     func getAlert() -> Alert {
@@ -67,9 +92,8 @@ struct UserListContent: View {
 }
 
 
-
-struct UserListContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserListContent(newUser: User.makeDefault())
-    }
-}
+//struct UserListContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserListContent(newUser: User.makeDefault())
+//    }
+//}
