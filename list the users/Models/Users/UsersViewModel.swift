@@ -13,6 +13,19 @@ class UsersViewModel: ObservableObject {
     init() {
         loadData()
     }
+
+//  FIXME: -  Make a static var that returns a loaded UsersViewModel
+//             make sure onAppear only loads it once so I will have a switch that will be set false and it will ensure onlt load once
+
+    init(loadIt: Bool = true) {
+        if loadIt {
+            loadData()
+        }
+    }
+
+
+    
+    
     
     func loadData() {
         guard !isLoading else { return }
@@ -22,7 +35,6 @@ class UsersViewModel: ObservableObject {
                 let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
                 DispatchQueue.main.async {
                     self.users = resposnse.users
-//                    dump(self.users)
                 }
             } catch {
                print(error.localizedDescription)

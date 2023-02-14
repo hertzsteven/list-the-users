@@ -15,8 +15,7 @@ struct UserListContent: View {
     
     @State var newUser: User
     @State private var isAddingNewUser = false
-    
-    	
+        	
     var body: some View {
         NavigationView {
             Section{

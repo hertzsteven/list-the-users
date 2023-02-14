@@ -22,11 +22,41 @@ final class ApiManager {
         let response: NetworkResponse = try await session.data(for: request)
         return response
     }
-    
+      
       
     func getData<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D {
+        
         let request = try createRequest(from: endpoint)
-        let response: NetworkResponse = try await session.data(for: request)
+        
+        let respnseOfNetworkCall: NetworkResponse = try await session.data(for: request)
+        
+        if let httpResponse = respnseOfNetworkCall.response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200...299:
+                print("Successful response - Code: \(httpResponse.statusCode)")
+            case 400:
+                throw ApiError.clientBadRequest(hTTPuRLResponse: httpResponse)
+            case 401:
+                throw ApiError.clientUnauthorized(hTTPuRLResponse: httpResponse)
+            case 403:
+                throw ApiError.clientForbidden(hTTPuRLResponse: httpResponse)
+            case 404:
+                throw ApiError.clientNotFound(hTTPuRLResponse: httpResponse)
+            case 500...599:
+                throw ApiError.serverError(hTTPuRLResponse: httpResponse)
+            default:
+                throw ApiError.unexpected(hTTPuRLResponse: httpResponse)
+            }
+        }
+        
+        do {
+            let decodedResult = try decoder.decode(D.self, from: respnseOfNetworkCall.data)
+            return decodedResult
+        } catch let error {
+            throw ApiError.decodingError(decodingStatus: error)
+        }
+        return try decoder.decode(D.self, from: respnseOfNetworkCall.data)
+        
 //        dump(response.data)
 //        do {
 //          let json = try JSONSerialization.jsonObject(with: response.data, options: [])
@@ -34,7 +64,6 @@ final class ApiManager {
 //        } catch {
 //          print("Error while converting data to JSON: \(error)")
 //        }
-        return try decoder.decode(D.self, from: response.data)
     }
     
     func sendData<D: Decodable, E: Encodable>(from endpoint: ApiEndpoint, with body: E) async throws -> D {
