@@ -65,9 +65,22 @@ struct UserDetailContent: View {
             
             if !isNew {
                 Button(role: .destructive, action: {
+                    print("we are about to delete the user \(user.id)")
                     isDeleted = true
+                    
+                    Task {
+                        do {
+                            let response = try await ApiManager.shared.getDataNoDecode(from: .deleteaUser(id: user.id))
+                            dump(response)
+                            print("break")
+                            usersViewModel.delete(user)
+                        } catch let error as ApiError {
+                                //  FIXME: -  put in alert that will display approriate error message
+                            print(error.description)
+                        }
+                    }
                     dismiss()
-                    usersViewModel.delete(user)
+
                 }, label: {
                     Text("Delete User")
                         .font(Font.custom("SF Pro", size: 17))

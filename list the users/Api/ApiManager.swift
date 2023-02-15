@@ -19,8 +19,36 @@ final class ApiManager {
     
     func getDataNoDecode(from endpoint: ApiEndpoint) async throws -> NetworkResponse  {
         let request = try createRequest(from: endpoint)
-        let response: NetworkResponse = try await session.data(for: request)
-        return response
+        let respnseOfNetworkCall: NetworkResponse = try await session.data(for: request)
+         
+        if let httpResponse = respnseOfNetworkCall.response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200...299:
+                print("Successful response - Code: \(httpResponse.statusCode)")
+                do {
+                     if let jsonDict = try JSONSerialization.jsonObject(with: respnseOfNetworkCall.data, options: []) as? [String: Any] {
+                         print(jsonDict)
+                     }
+                 } catch {
+                     print("Error deserializing JSON: \(error.localizedDescription)")
+                 }
+
+            case 400:
+                throw ApiError.clientBadRequest(hTTPuRLResponse: httpResponse)
+            case 401:
+                throw ApiError.clientUnauthorized(hTTPuRLResponse: httpResponse)
+            case 403:
+                throw ApiError.clientForbidden(hTTPuRLResponse: httpResponse)
+            case 404:
+                throw ApiError.clientNotFound(hTTPuRLResponse: httpResponse)
+            case 500...599:
+                throw ApiError.serverError(hTTPuRLResponse: httpResponse)
+            default:
+                throw ApiError.unexpected(hTTPuRLResponse: httpResponse)
+            }
+        }
+        
+        return respnseOfNetworkCall
     }
       
       
@@ -34,6 +62,8 @@ final class ApiManager {
             switch httpResponse.statusCode {
             case 200...299:
                 print("Successful response - Code: \(httpResponse.statusCode)")
+                 
+
             case 400:
                 throw ApiError.clientBadRequest(hTTPuRLResponse: httpResponse)
             case 401:
@@ -123,43 +153,64 @@ private extension ApiManager {
             request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
             request.addValue("hash=5fd0a563b23bd04f5dbf78a49962614e", forHTTPHeaderField: "Cookie")
 
-        case .addUser:
+        case .addUser(let username, let password, let email, let firstName, let lastName, let locationId):
             request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
             request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
             request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
             
+            
+//            let bodyString = """
+//            {
+//               "username": username,
+//               "password": password,
+//               "email": email,
+//               "firstName": firstName,
+//               "lastName": lastName,
+//               "memberOf": [
+//                  "This will be a new group",
+//                  1
+//               ],
+//               "locationId": locationId
+//            }
+//            """
+
+            
+            
             let bodyString = """
             {
-               "username": "eiehiihiodhiwdhidhoqwdihoqihqwd",
-               "password": "@P3Paddssw0rd",
-               "email": "deejjodijowjdpqwdjopwjdo@jamfschool.com",
-               "firstName": "oooooooooo",
-               "lastName": "mmmmmmmmmm",
+               "username": "\(username)",
+               "password": "\(password)",
+               "email": "\(email)",
+               "firstName": "\(firstName)",
+               "lastName": "\(lastName)",
                "memberOf": [
                   "This will be a new group",
                   1
                ],
-               "locationId": 0
+               "locationId": \(locationId)
             }
             """
+            print(bodyString)
+            print(username)
+//            {
+//               "username": "aaaaaaawwwwwwwwww",
+//               "password": "@P3Paddssw0rd",
+//               "email": "deejjodijowjdpqwdjopwjdo@jamfschool.com",
+//               "firstName": "aaaaaaaaaa",
+//               "lastName": "mmmmmmmmmm",
+//               "memberOf": [
+//                  "This will be a new group",
+//                  1
+//               ],
+//               "locationId": 0
+//            }
+
+//            let bodyString = "{\n   \"username\": \"new_api_use54\",\n   \"password\": \"@P3Passw0rd\",\n   \"email\": \"newapi24@jamfschool.com\",\n   \"firstName\": \"jim\",\n   \"lastName\": \"insane\",\n   \"memberOf\": [\n      \"This will be a new group\",\n      1\n   ],\n   \"locationId\": 0\n}"
 
             request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
 
-//
-//            let bodyObject: [String : Any] = [
-//                "username": "zxzxcfrankmunchkin",
-//                "password": "@P3Passw0rd",
-//                "email": "fmunchkin@jamfschool.com",
-//                "firstName": "frank",
-//                "lastName": "Munchkin",
-//                "memberOf": [
-//                   "This will be a new group",
-//                   1
-//                ],
-//                "locationId": 0
-//            ]
-//            request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
-
+        case .deleteaUser(id: let id):
+            request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
         }
         
         return request

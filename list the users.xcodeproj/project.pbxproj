@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		461D21CA299C4A37008B7BD2 /* AddAUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461D21C9299C4A37008B7BD2 /* AddAUserResponse.swift */; };
 		46336700299426A900CF5EA3 /* UserDetailContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463366FF299426A900CF5EA3 /* UserDetailContent.swift */; };
 		4633670229942D2C00CF5EA3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4633670129942D2C00CF5EA3 /* TabBarController.swift */; };
 		46336705299452A600CF5EA3 /* CustomLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46336704299452A600CF5EA3 /* CustomLabelStyle.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		461D21C9299C4A37008B7BD2 /* AddAUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAUserResponse.swift; sourceTree = "<group>"; };
 		463366FE2993F34C00CF5EA3 /* showPawGenerated.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = showPawGenerated.md; sourceTree = "<group>"; };
 		463366FF299426A900CF5EA3 /* UserDetailContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailContent.swift; sourceTree = "<group>"; };
 		4633670129942D2C00CF5EA3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -67,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		461D21C8299C4A17008B7BD2 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				461D21C9299C4A37008B7BD2 /* AddAUserResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
 		463367032994527E00CF5EA3 /* Custom Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +139,7 @@
 		46584FD72993EA9C0025F539 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				461D21C8299C4A17008B7BD2 /* Responses */,
 				46E56DBE2996B63A00CB2512 /* SchoolClassDetail */,
 				46E56DBB2996B3FF00CB2512 /* SchoolClasses */,
 				46E56DB82996B31200CB2512 /* ClassDetail */,
@@ -297,6 +308,7 @@
 				46E56DBD2996B42500CB2512 /* SchoolClassResponse.swift in Sources */,
 				46584FDD2993EB650025F539 /* UserResponse.swift in Sources */,
 				46584FE52993F03C0025F539 /* ApiManager.swift in Sources */,
+				461D21CA299C4A37008B7BD2 /* AddAUserResponse.swift in Sources */,
 				46E56DB12995E1C000CB2512 /* TestOutView.swift in Sources */,
 				46336700299426A900CF5EA3 /* UserDetailContent.swift in Sources */,
 				46E56DB42996977A00CB2512 /* AuthenticateReturnObjct.swift in Sources */,

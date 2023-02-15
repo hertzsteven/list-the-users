@@ -15,13 +15,6 @@ struct TestOutView: View {
                 print("getting the students")
                 Task {
                     do {
-                        let addUserRespnse = try await ApiManager.shared.getDataNoDecode(from: .addUser)
-                        if let dd = addUserRespnse.response as? HTTPURLResponse {
-                            let status = dd.statusCode
-                            if status == 200 {
-                                print("we added a user")
-                            }
-                        }
                         
                         let resposnse: AuthenticateReturnObjct = try await ApiManager.shared.getData(from: .authenticateTeacher(company: "2001128", username: "teacherlila", password: "123456"))
                         dump(resposnse)

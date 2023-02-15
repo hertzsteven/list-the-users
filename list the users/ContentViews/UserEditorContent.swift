@@ -38,7 +38,6 @@ struct UserEditorContent: View {
                 }
              }
 
-
                 .toolbar(content: {
                     ToolbarItem(placement: .cancellationAction) {
                         if isNew {
@@ -50,7 +49,19 @@ struct UserEditorContent: View {
                     ToolbarItem {
                         Button {
                             if isNew {
-                                usersViewModel.users.append(userCopy)
+                                userCopy.locationId = 0
+                                Task {
+                                    do {
+                                        let resposnseaddAUser: AddAUserResponse = try await ApiManager.shared.getData(from: .addUser(username: userCopy.username, password: "123456" , email: userCopy.email, firstName: userCopy.firstName, lastName: userCopy.lastName, locationId: userCopy.locationId))
+                                        userCopy.id = resposnseaddAUser.id
+                                        self.self.usersViewModel.users.append(self.userCopy)
+                                        dump(resposnseaddAUser)
+                                        print("fkffkkf")
+                                    } catch let error as ApiError {
+                                            //  FIXME: -  put in alert that will display approriate error message
+                                        print(error)
+                                    }
+                                }
                                 dismiss()
                             }
                         } label: {
