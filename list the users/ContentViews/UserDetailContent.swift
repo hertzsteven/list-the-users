@@ -61,6 +61,9 @@ struct UserDetailContent: View {
                     .fontWeight(.bold)
                 
             }
+            .onAppear {
+
+            }
  
             
             if !isNew {

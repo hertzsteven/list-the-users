@@ -107,6 +107,7 @@ final class ApiManager {
 private extension ApiManager {
     
     func createRequest(from endpoint: ApiEndpoint) throws -> URLRequest {
+        print(endpoint.path)
         guard
             let urlPath = URL(string: ApiHelper.baseURL.appending(endpoint.path)),
             var urlComponents = URLComponents(string: urlPath.path)
@@ -157,25 +158,7 @@ private extension ApiManager {
             request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
             request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
             request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            
-            
-//            let bodyString = """
-//            {
-//               "username": username,
-//               "password": password,
-//               "email": email,
-//               "firstName": firstName,
-//               "lastName": lastName,
-//               "memberOf": [
-//                  "This will be a new group",
-//                  1
-//               ],
-//               "locationId": locationId
-//            }
-//            """
 
-            
-            
             let bodyString = """
             {
                "username": "\(username)",
@@ -192,25 +175,33 @@ private extension ApiManager {
             """
             print(bodyString)
             print(username)
-//            {
-//               "username": "aaaaaaawwwwwwwwww",
-//               "password": "@P3Paddssw0rd",
-//               "email": "deejjodijowjdpqwdjopwjdo@jamfschool.com",
-//               "firstName": "aaaaaaaaaa",
-//               "lastName": "mmmmmmmmmm",
-//               "memberOf": [
-//                  "This will be a new group",
-//                  1
-//               ],
-//               "locationId": 0
-//            }
-
-//            let bodyString = "{\n   \"username\": \"new_api_use54\",\n   \"password\": \"@P3Passw0rd\",\n   \"email\": \"newapi24@jamfschool.com\",\n   \"firstName\": \"jim\",\n   \"lastName\": \"insane\",\n   \"memberOf\": [\n      \"This will be a new group\",\n      1\n   ],\n   \"locationId\": 0\n}"
 
             request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
 
         case .deleteaUser(id: let id):
             request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
+            
+    
+        case .updateaUser(let id, let username, let password, let email, let firstName, let lastName, let locationId):
+            request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
+             request.addValue("1", forHTTPHeaderField: "X-Server-Protocol-Version")
+             request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
+           
+            let bodyString = """
+            {
+               "username": "\(username)",
+               "password": "\(password)",
+               "email": "\(email)",
+               "firstName": "\(firstName)",
+               "lastName": "\(lastName)",
+               "memberOf": [
+                  "This will be a new group",
+                  1
+               ],
+               "locationId": \(locationId)
+            }
+            """
+            request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
         }
         
         return request

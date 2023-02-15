@@ -24,6 +24,7 @@ enum ApiEndpoint {
     case getSchoolClasses
     case addUser(username: String, password: String, email: String, firstName: String, lastName: String, locationId: Int)
     case deleteaUser(id: Int)
+    case updateaUser(id: Int, username: String, password: String, email: String, firstName: String, lastName: String, locationId: Int)
 
 }
 
@@ -46,6 +47,9 @@ extension ApiEndpoint {
             return "/users"
         case .deleteaUser(let id):
             return "/users/\(id)"
+        case .updateaUser(let id, username: _, password: _, email: _, firstName: _, lastName: _, locationId: _):
+            return "/users/\(id)"
+
         }
     }
     
@@ -56,6 +60,8 @@ extension ApiEndpoint {
             return .POST
         case .addUser:
             return .POST
+        case .updateaUser(id: _):
+            return .PUT
         case .deleteaUser(id: _):
             return .DELETE
         default:

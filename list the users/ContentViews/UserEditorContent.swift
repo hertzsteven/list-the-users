@@ -28,13 +28,24 @@ struct UserEditorContent: View {
         VStack {
             UserDetailContent(user: $userCopy, isDeleted: $isDeleted, isNew: $isNew)
             .onDisappear {
-                print("🚘 In on disAppear -UserEditorContent zero \(user.firstName) ")
-                if user_start == user {
-                    print("its the same")
-                    dump(user_start)
-                    dump(user)
-                } else {
-                    print("its different")
+                if isNew == false && isDeleted == false {
+                    print("🚘 In on disAppear -UserEditorContent zero \(user.firstName) ")
+                    if user_start == user {
+                        print("its the same")
+                    } else {
+                        print("its different")
+                        
+                        Task {
+                            do {
+                                let response = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: user.id, username: user.username, password: "123456" , email: user.email, firstName: user.firstName, lastName: user.lastName, locationId: user.locationId))
+                                 
+                            } catch let error as ApiError {
+                                    //  FIXME: -  put in alert that will display approriate error message
+                                print(error.description)
+                            }
+                        }
+                        dismiss()
+                    }
                 }
              }
 
