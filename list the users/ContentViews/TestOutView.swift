@@ -15,19 +15,20 @@ struct TestOutView: View {
                 print("getting the students")
                 Task {
                     do {
-                        let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: "5660a0b6-7a4c-4749-abb2-735b3476a927"))
+                        let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: ApiHelper.classuuid))
                         dump(classDetailResponse)
-                        let resposnse: AuthenticateReturnObjct = try await ApiManager.shared.getData(from: .authenticateTeacher(company: "2001128", username: "teacherlila", password: "123456"))
+                        let resposnse: AuthenticateReturnObjct = try await ApiManager.shared.getData(from: .authenticateTeacher(company: ApiHelper.company, username: ApiHelper.username, password: ApiHelper.password))
                         dump(resposnse)
                         print("break")
                         let resposnseUserDetail: UserDetailResponse = try await ApiManager.shared.getData(from: .getaUser(id: resposnse.authenticatedAs.id))
                         dump(resposnseUserDetail)
-                        print("fkffkkf")
+                        print("resposnseUserDetail")
                         let resposnseSchoolClasses: SchoolClassResponse = try await ApiManager.shared.getData(from: .getSchoolClasses)
                         dump(resposnseSchoolClasses)
-                        print("fkffkkf")
+                        print("resposnseSchoolClasses")
+
                         let cls = resposnseSchoolClasses.classes.contains {clss in
-                            clss.userGroupId == 1
+                            clss.userGroupId == ApiHelper.clssuserGroupId
                         }
                         dump(cls)
 
