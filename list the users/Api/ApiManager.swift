@@ -126,12 +126,13 @@ private extension ApiManager {
         switch endpoint {
             
         case .getUsers:
-            request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
             request.addValue("hash=e9bed0e4643c2be63f77439ba63d0691", forHTTPHeaderField: "Cookie")
             
-        case .getStudents:
-            request.addValue("Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA=", forHTTPHeaderField: "Authorization")
-            request.addValue("hash=e9bed0e4643c2be63f77439ba63d0691", forHTTPHeaderField: "Cookie")
+        case .getStudents(uuid: let uuid):
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
+            request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
+
             
         case .authenticateTeacher(company: let company, username: let username, password: let password):
             request.addValue("Basic NjUzMTkwNzY6TUNTTUQ2VkM3TUNLVU5OOE1KNUNEQTk2UjFIWkJHQVY=", forHTTPHeaderField: "Authorization")
@@ -146,7 +147,7 @@ private extension ApiManager {
             request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
             
         case .getaUser(let id):
-            request.addValue("Basic NjUzMTkwNzY6TUNTTUQ2VkM3TUNLVU5OOE1KNUNEQTk2UjFIWkJHQVY=", forHTTPHeaderField: "Authorization")
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
             request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
             
         case .getSchoolClasses:
@@ -173,8 +174,6 @@ private extension ApiManager {
                "locationId": \(locationId)
             }
             """
-            print(bodyString)
-            print(username)
 
             request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
 

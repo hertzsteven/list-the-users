@@ -11,5 +11,20 @@ import Foundation
     struct ApiHelper {
         
         /// API Base URL
-        static let baseURL = "https://developitsnfrEDU.jamfcloud.com/api"
+        //  MARK: -  For MYNFR
+//        static let baseURL =  "https://developitsnfrEDU.jamfcloud.com/api"
+//        static let authorizationCode = "Basic NjUzMTkwNzY6UFFMNjFaVUU2RlFOWDVKSlMzTE5CWlBDS1BETVhMSFA="
+//        static let classuuid = "5660a0b6-7a4c-4749-abb2-735b3476a927"
+
+            //        static let authorizationCodeAlt = "Basic NjUzMTkwNzY6TUNTTUQ2VkM3TUNLVU5OOE1KNUNEQTk2UjFIWkJHQVY="
+
+        
+        //  MARK: -  for YDE
+        static let baseURL = "https://ydeschool.jamfcloud.com/api"
+        static let authorizationCode = "Basic NTM3MjI0NjA6RVBUTlpaVEdYV1U1VEo0Vk5RUDMyWDVZSEpSVjYyMkU=" // this is for yde"
+        static let classuuid = "872558bd-0c84-49aa-9023-60655fcc9ffd"
+
+        
+        
+        
     }

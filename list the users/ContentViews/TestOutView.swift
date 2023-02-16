@@ -15,7 +15,8 @@ struct TestOutView: View {
                 print("getting the students")
                 Task {
                     do {
-                        
+                        let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: "5660a0b6-7a4c-4749-abb2-735b3476a927"))
+                        dump(classDetailResponse)
                         let resposnse: AuthenticateReturnObjct = try await ApiManager.shared.getData(from: .authenticateTeacher(company: "2001128", username: "teacherlila", password: "123456"))
                         dump(resposnse)
                         print("break")

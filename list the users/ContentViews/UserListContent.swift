@@ -13,6 +13,7 @@ struct UserListContent: View {
     @State private var presentAlertSw: Bool = false
     
     @EnvironmentObject var usersViewModel: UsersViewModel
+    @EnvironmentObject var classDetailViewModel: ClassDetailViewModel
     
     @State var newUser: User
     @State private var isAddingNewUser = false
@@ -66,25 +67,33 @@ struct UserListContent: View {
 //                        try usersViewModel.loadData()
 //                    }
                     .task {
-                        if !usersAreLoaded {
-                            print("🚘 In Task")
-                            Task {
-                                do {
-                                    let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
-                                    self.usersViewModel.users = resposnse.users
-                                    self.usersAreLoaded.toggle()
-                                        //                                dump(resposnse)
-                                        //                                print("break")
-                                    
-                                } catch let error as ApiError {
-                                    print(error.description)
-                                    presentAlertSw.toggle()
-                                }
-                            }
-                            
-                         }
+                        print("🚘 In innerTask")
+
                     }
                     
+        }
+        .task {
+            print("🚘 In outer task")
+            if !usersAreLoaded {
+
+                Task {
+                    do {
+                        let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
+                        self.usersViewModel.users = resposnse.users
+                        let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: ApiHelper.classuuid))
+                        self.classDetailViewModel.students = classDetailResponse.class.students
+                        self.usersAreLoaded.toggle()
+                        
+                            //                                dump(resposnse)
+                            //                                print("break")
+                        
+                    } catch let error as ApiError {
+                        print(error.description)
+                        presentAlertSw.toggle()
+                    }
+                }
+                
+             }
         }
     }
     func getAlert() -> Alert {

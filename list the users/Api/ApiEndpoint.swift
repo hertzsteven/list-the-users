@@ -19,7 +19,7 @@ enum ApiEndpoint {
     /// Define all your endpoints here
     case getUsers
     case getaUser(id: Int)
-    case getStudents
+    case getStudents(uuid: String)
     case authenticateTeacher(company: String, username:String, password: String)
     case getSchoolClasses
     case addUser(username: String, password: String, email: String, firstName: String, lastName: String, locationId: Int)
@@ -35,8 +35,8 @@ extension ApiEndpoint {
         switch self {
         case .getUsers:
            return "/users"
-        case .getStudents:
-            return ""
+        case .getStudents(let uuid):
+            return "/classes/\(uuid)"
         case .authenticateTeacher(company: _, username: _, password: _):
             return "/teacher/authenticate"
         case .getaUser(let id):
@@ -92,6 +92,8 @@ extension ApiEndpoint {
     /// The URL parameters for the endpoint (in case it has any)
     var parameters: [URLQueryItem]? {
         switch self {
+//        case .getStudents(uuid: _):
+//            return [URLQueryItem(name: "token", value: "9c74b8d6a4934ca986dfe46592896801")]
         default:
             return nil
         }

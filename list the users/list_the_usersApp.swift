@@ -10,12 +10,14 @@ import SwiftUI
 @main
 struct list_the_usersApp: App {
     @StateObject var usersViewModel = UsersViewModel()
+    @StateObject var classDetailViewModel = ClassDetailViewModel()
     
     var body: some Scene {
         WindowGroup {
             TabBarController()
 //            UserListContent(newUser: User.makeDefault())
                 .environmentObject(usersViewModel)
+                .environmentObject(classDetailViewModel)
         }
     }
 }

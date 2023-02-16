@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		461D21CA299C4A37008B7BD2 /* AddAUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461D21C9299C4A37008B7BD2 /* AddAUserResponse.swift */; };
+		461D21CC299D89DD008B7BD2 /* ClassDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461D21CB299D89DC008B7BD2 /* ClassDetailViewModel.swift */; };
+		461D21CE299D8A64008B7BD2 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461D21CD299D8A64008B7BD2 /* Student.swift */; };
 		46336700299426A900CF5EA3 /* UserDetailContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463366FF299426A900CF5EA3 /* UserDetailContent.swift */; };
 		4633670229942D2C00CF5EA3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4633670129942D2C00CF5EA3 /* TabBarController.swift */; };
 		46336705299452A600CF5EA3 /* CustomLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46336704299452A600CF5EA3 /* CustomLabelStyle.swift */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		461D21C9299C4A37008B7BD2 /* AddAUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAUserResponse.swift; sourceTree = "<group>"; };
+		461D21CB299D89DC008B7BD2 /* ClassDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewModel.swift; sourceTree = "<group>"; };
+		461D21CD299D8A64008B7BD2 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		463366FE2993F34C00CF5EA3 /* showPawGenerated.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = showPawGenerated.md; sourceTree = "<group>"; };
 		463366FF299426A900CF5EA3 /* UserDetailContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailContent.swift; sourceTree = "<group>"; };
 		4633670129942D2C00CF5EA3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				46E56DB92996B33800CB2512 /* ClassDetailResponse.swift */,
+				461D21CD299D8A64008B7BD2 /* Student.swift */,
+				461D21CB299D89DC008B7BD2 /* ClassDetailViewModel.swift */,
 			);
 			path = ClassDetail;
 			sourceTree = "<group>";
@@ -316,6 +322,8 @@
 				46584FDF2993ECD50025F539 /* UsersViewModel.swift in Sources */,
 				46336705299452A600CF5EA3 /* CustomLabelStyle.swift in Sources */,
 				46584FE72993F0960025F539 /* ApiHelper.swift in Sources */,
+				461D21CC299D89DD008B7BD2 /* ClassDetailViewModel.swift in Sources */,
+				461D21CE299D8A64008B7BD2 /* Student.swift in Sources */,
 				46584FEB2993F10F0025F539 /* ApiEndpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
