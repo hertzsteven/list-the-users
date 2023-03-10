@@ -11,17 +11,7 @@ class UsersViewModel: ObservableObject {
     @Published var isLoading = false
 
     init() {
-//        loadData()
     }
-
-//  FIXME: -  Make a static var that returns a loaded UsersViewModel
-//             make sure onAppear only loads it once so I will have a switch that will be set false and it will ensure onlt load once
-
-//    init(loadIt: Bool = true) {
-//        if loadIt {
-//            loadData()
-//        }
-//    }
 
     
     func loadData() throws {
@@ -32,29 +22,45 @@ class UsersViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.users = resposnse.users
             }
-
-//            do {
-//                let resposnse: UserResponse = try await ApiManager.shared.getData(from: .getUsers)
-//                DispatchQueue.main.async {
-//                    self.users = resposnse.users
-//                }
-//            } catch let error  as ApiError {
-//                print(error.description)
-//            }
         }
     }
+    
     
     func delete(_ user: User) {
         users.removeAll { $0.id == user.id }
     }
     
+    
     func add(_ user: User) {
         users.append(user)
     }
     
+    
     func exists(_ user: User) -> Bool {
         users.contains(user)
     }
+    
+    
+    static func updateUser(user: User) async -> Void {
+        do {
+            _ = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: user.id,
+                                                                               username: user.username,
+                                                                               password: "123456" ,
+                                                                               email: user.email,
+                                                                               firstName: user.firstName,
+                                                                               lastName: user.lastName,
+                                                                               notes: user.notes,
+                                                                               locationId: user.locationId))
+             
+        } catch let error as ApiError {
+                //  FIXME: -  put in alert that will display approriate error message
+            print(error.description)
+        } catch {
+            print(error.localizedDescription)
+        }
+
+    }
+    
     
     func sortedUsers(lastNameFilter searchStr: String = "") -> Binding<[User]> {
          Binding<[User]>(

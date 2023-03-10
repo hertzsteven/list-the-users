@@ -17,12 +17,16 @@ struct TestOutView: View {
                     do {
                         let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: ApiHelper.classuuid))
                         dump(classDetailResponse)
+                        
                         let resposnse: AuthenticateReturnObjct = try await ApiManager.shared.getData(from: .authenticateTeacher(company: ApiHelper.company, username: ApiHelper.username, password: ApiHelper.password))
                         dump(resposnse)
                         print("break")
+                        
                         let resposnseUserDetail: UserDetailResponse = try await ApiManager.shared.getData(from: .getaUser(id: resposnse.authenticatedAs.id))
                         dump(resposnseUserDetail)
                         print("resposnseUserDetail")
+                        
+                        // get classes
                         let resposnseSchoolClasses: SchoolClassResponse = try await ApiManager.shared.getData(from: .getSchoolClasses)
                         dump(resposnseSchoolClasses)
                         print("resposnseSchoolClasses")

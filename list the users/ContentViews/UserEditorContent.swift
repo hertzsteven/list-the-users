@@ -38,13 +38,21 @@ struct UserEditorContent: View {
                         print("its different")
                         
                         Task {
-                            do {
-                                _ = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: user.id, username: user.username, password: "123456" , email: user.email, firstName: user.firstName, lastName: user.lastName, locationId: user.locationId))
-                                 
-                            } catch let error as ApiError {
-                                    //  FIXME: -  put in alert that will display approriate error message
-                                print(error.description)
-                            }
+                            print(user.notes)
+                            await UsersViewModel.updateUser(user:user)
+//                            do {
+//                                _ = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: user.id,
+//                                                                                                   username: user.username,
+//                                                                                                   password: "123456" ,
+//                                                                                                   email: user.email,
+//                                                                                                   firstName: user.firstName,
+//                                                                                                   lastName: user.lastName,
+//                                                                                                   locationId: user.locationId))
+//
+//                            } catch let error as ApiError {
+//                                    //  FIXME: -  put in alert that will display approriate error message
+//                                print(error.description)
+//                            }
                         }
                         dismiss()
                     }

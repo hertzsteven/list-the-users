@@ -181,7 +181,7 @@ private extension ApiManager {
             request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
             
     
-        case .updateaUser(let id, let username, let password, let email, let firstName, let lastName, let locationId):
+        case .updateaUser(let id, let username, let password, let email, let firstName, let lastName,let notes, let locationId):
             request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
              request.addValue("1", forHTTPHeaderField: "X-Server-Protocol-Version")
              request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -197,6 +197,7 @@ private extension ApiManager {
                   "This will be a new group",
                   1
                ],
+               "notes": "\(notes)",
                "locationId": \(locationId)
             }
             """
