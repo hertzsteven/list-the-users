@@ -19,7 +19,7 @@ struct TabBarController : View {
 //                    Text("Students")
                 }
 
-            TestOutView()
+            SchoolListContent()
                 .tabItem {
                     Image(systemName: "phone.arrow.up.right")
                     Text("Outgoing")

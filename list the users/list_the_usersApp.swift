@@ -9,8 +9,9 @@ import SwiftUI
 
 @main
 struct list_the_usersApp: App {
-    @StateObject var usersViewModel = UsersViewModel()
-    @StateObject var classDetailViewModel = ClassDetailViewModel()
+    @StateObject var usersViewModel         = UsersViewModel()
+    @StateObject var classDetailViewModel   = ClassDetailViewModel()
+    @StateObject var classesViewModel       = ClassesViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -19,6 +20,7 @@ struct list_the_usersApp: App {
 //            UserListContent(newUser: User.makeDefault())
                 .environmentObject(usersViewModel)
                 .environmentObject(classDetailViewModel)
+                .environmentObject(classesViewModel)
         }
     }
 }

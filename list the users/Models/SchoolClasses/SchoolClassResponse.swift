@@ -14,10 +14,45 @@ struct SchoolClassResponse: Codable {
         
 }
 
-struct SchoolClass: Codable {
+struct SchoolClass: Codable, Identifiable , Hashable {
     let uuid:         String
     let name:         String
     let description:  String
     let userGroupId:  Int
+    var id: String {
+        uuid
+    }
 }
 
+extension SchoolClass: Equatable, Comparable {
+    static func < (lhs: SchoolClass, rhs: SchoolClass) -> Bool {
+        lhs.uuid == rhs.uuid
+    }
+}
+
+//extension SchoolClass {
+//    static func makeDefault() -> SchoolClass {
+//        
+//        let date = Date()
+//        let calendar = Calendar.current
+//        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+//
+//        let year = components.year!
+//        let month = components.month!
+//        let day = components.day!
+//        let hour = components.hour!
+//        let minute = components.minute!
+//        let second = components.second!
+//
+//        let startOfToday = DateComponents(calendar: calendar, year: year, month: month, day: day).date!
+//        let elapsedTime = date.timeIntervalSince(startOfToday)
+//
+//        let totalSeconds = Int(elapsedTime) + (hour * 60 * 60) + (minute * 60) + second
+//
+////        print("Total seconds from the start of today: \(totalSeconds)")
+//
+//  
+//        SchoolClass(uuid: <#T##String#>, name: <#T##String#>, description: <#T##String#>, userGroupId: <#T##Int#>)
+////        return User(id: totalSeconds, locationId: ApiHelper.globalLocationId, deviceCount: 0, email: "", groupIds: [], groups: [""], firstName: "", lastName: "", username: "", notes: "", modified: "")
+//    }
+//}
