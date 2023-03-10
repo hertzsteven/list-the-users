@@ -56,11 +56,19 @@ class UsersViewModel: ObservableObject {
         users.contains(user)
     }
     
-    func sortedUsers() -> Binding<[User]> {
+    func sortedUsers(lastNameFilter searchStr: String = "") -> Binding<[User]> {
          Binding<[User]>(
-             get: {
-                 self.users
-                     .sorted { $0.lastName < $1.lastName }
+            get: {
+                self.users
+                    .sorted { $0.lastName < $1.lastName }
+               
+                    .filter {
+                        if searchStr.isEmpty  {
+                          return  true
+                        } else {
+                            return  $0.lastName.lowercased().contains(searchStr.lowercased())
+                        }
+            }
              },
              set: { users in
                  for user in users {

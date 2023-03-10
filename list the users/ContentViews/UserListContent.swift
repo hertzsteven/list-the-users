@@ -10,6 +10,8 @@ import SwiftUI
 
 struct UserListContent: View {
     
+    @State private var searchText = ""
+    
     @State private var presentAlertSw: Bool = false
     
     @EnvironmentObject var usersViewModel: UsersViewModel
@@ -23,7 +25,7 @@ struct UserListContent: View {
     var body: some View {
         NavigationView {
             Section{
-                List(usersViewModel.sortedUsers()) { $theUser in
+                List(usersViewModel.sortedUsers(lastNameFilter: searchText)) { $theUser in
                     NavigationLink {
                         UserEditorContent(user: $theUser)
                     } label: {
@@ -38,6 +40,7 @@ struct UserListContent: View {
                     }
                 }
                 .listStyle(.plain)
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
                 
                 .navigationTitle("🧒👦🏾👧🏼 Students")
                 .onAppear { print("🟢 OnAppear - list view") }

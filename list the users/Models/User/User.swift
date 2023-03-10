@@ -21,6 +21,7 @@ struct User: Codable, Identifiable, Hashable {
     var modified:       String
 }
 
+
 extension User {
     static func makeDefault() -> User {
         
@@ -43,7 +44,7 @@ extension User {
 //        print("Total seconds from the start of today: \(totalSeconds)")
 
         
-        return User(id: totalSeconds, locationId: 0, deviceCount: 0, email: "", groupIds: [], groups: [""], firstName: "", lastName: "", username: "", notes: "", modified: "")
+        return User(id: totalSeconds, locationId: ApiHelper.globalLocationId, deviceCount: 0, email: "", groupIds: [], groups: [""], firstName: "", lastName: "", username: "", notes: "", modified: "")
     }
 }
 

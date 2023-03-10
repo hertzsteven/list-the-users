@@ -60,7 +60,7 @@ struct UserEditorContent: View {
                     ToolbarItem {
                         Button {
                             if isNew {
-                                userCopy.locationId = 0
+                                userCopy.locationId = ApiHelper.globalLocationId
                                 Task {
                                     do {
                                         let resposnseaddAUser: AddAUserResponse = try await ApiManager.shared.getData(from: .addUser(username: userCopy.username, password: "123456" , email: userCopy.email, firstName: userCopy.firstName, lastName: userCopy.lastName, locationId: userCopy.locationId))
