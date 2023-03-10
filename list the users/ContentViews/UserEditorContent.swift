@@ -5,21 +5,22 @@
 //  Created by Steven Hertz on 2/9/23.
 //
 
+
 import SwiftUI
 
 struct UserEditorContent: View {
-    @State var  user_start: User = User.makeDefault()
     
     @Binding var user: User
     
-    @State var isNew = false
+    @State private var user_start   = User.makeDefault()  // this gets done by the update
+    @State private var userCopy     = User.makeDefault()
+
+    @State         var isNew = false
     @State private var isDeleted = false
     
     @EnvironmentObject var usersViewModel: UsersViewModel
     @Environment(\.dismiss) private var dismiss
-    
-    @State private var userCopy = User.makeDefault()
-    
+
     private var isUserDeleted: Bool {
         !usersViewModel.exists(userCopy) && !isNew
     }
@@ -28,6 +29,7 @@ struct UserEditorContent: View {
         VStack {
             UserDetailContent(user: $userCopy, isDeleted: $isDeleted, isNew: $isNew)
             .onDisappear {
+                // We are about to update
                 if isNew == false && isDeleted == false {
                     print("🚘 In on disAppear -UserEditorContent zero \(user.firstName) ")
                     if user_start == user {
@@ -37,7 +39,7 @@ struct UserEditorContent: View {
                         
                         Task {
                             do {
-                                let response = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: user.id, username: user.username, password: "123456" , email: user.email, firstName: user.firstName, lastName: user.lastName, locationId: user.locationId))
+                                _ = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: user.id, username: user.username, password: "123456" , email: user.email, firstName: user.firstName, lastName: user.lastName, locationId: user.locationId))
                                  
                             } catch let error as ApiError {
                                     //  FIXME: -  put in alert that will display approriate error message
@@ -60,6 +62,7 @@ struct UserEditorContent: View {
                     ToolbarItem {
                         Button {
                             if isNew {
+                                userCopy.username = UUID().uuidString
                                 userCopy.locationId = ApiHelper.globalLocationId
                                 Task {
                                     do {
@@ -78,7 +81,7 @@ struct UserEditorContent: View {
                         } label: {
                             Text(isNew ? "Add" : "")
                         }
-                        .disabled(userCopy.username.isEmpty)
+                        .disabled(userCopy.lastName.isEmpty || userCopy.firstName.isEmpty)
                     }
                 })
                 .onAppear {

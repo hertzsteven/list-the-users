@@ -30,16 +30,16 @@ struct UserDetailContent: View {
 
  
     var body: some View {
-        List {
-            Section {
-                HStack {
-                    TextField("New User", text: $user.username)
-                        .font(.title2)
-                }
-                .padding([.top, .bottom], 8)
+        Form{
+//            Section {
+//                HStack {
+//                    TextField("New User", text: $user.username)
+//                        .font(.title2)
+//                }
+//                .padding([.top, .bottom], 8)
                 TextField("First Name", text: $user.firstName )
                     .padding([.top, .bottom], 8)
-                    .textFieldStyle(.roundedBorder)
+//                    .textFieldStyle(.roundedBorder)
                 
                 TextField("Last Name", text: $user.lastName )
  
@@ -51,16 +51,16 @@ struct UserDetailContent: View {
 //                    .padding([.top, .bottom], 8)
                 TextField("Notes", text: $user.notes )
                     .padding([.top, .bottom], 8)
-                TextField("Modified", text: $user.modified )
-                    .padding([.top, .bottom], 8)
+//                TextField("Modified", text: $user.modified )
+//                    .padding([.top, .bottom], 8)
 //                TextField("device count", text: $user.deviceCount )
 //                    .padding([.top, .bottom], 8)
                 TextField("email", text: $user.email )
                     .padding([.top, .bottom], 8)
-                 Text("Something")
-                    .fontWeight(.bold)
+//                 Text("Something")
+//                    .fontWeight(.bold)
                 
-            }
+//            }
             .onAppear {
 
             }
