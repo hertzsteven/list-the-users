@@ -19,7 +19,7 @@ struct SchoolListContent: View {
     @EnvironmentObject var classDetailViewModel: ClassDetailViewModel
     @EnvironmentObject var classesViewModel: ClassesViewModel
     
-//    @State var newClass: SchoolClass
+    @State var newClass: SchoolClass
     @State private var isAddingNewSchoolClass = false
     
     @State var classesAreLoaded: Bool = false
@@ -29,7 +29,7 @@ struct SchoolListContent: View {
             Section{
                 List(classesViewModel.sortedClasses(nameFilter: searchText)) { $theClass in
                     NavigationLink {
-                            //                        UserEditorContent(user: $theClass)
+                        SchoolClassEditorContent(schoolClass: $theClass)
                     } label: {
                         HStack {
                             Label("\(theClass.name) \(theClass.description)", systemImage: "person.circle")
@@ -49,8 +49,8 @@ struct SchoolListContent: View {
             .toolbar {
                 ToolbarItem {
                     Button {
-                            //                                newUser = User.makeDefault()
-                            //                                 isAddingNewUser = true
+                        newClass = SchoolClass.makeDefault()
+                        isAddingNewSchoolClass = true
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -58,9 +58,9 @@ struct SchoolListContent: View {
             }
             
             .sheet(isPresented: $isAddingNewSchoolClass) {
-                    //                       NavigationView {
-                    //                            UserEditorContent( user: $newUser, isNew: true)
-                    //                        }
+                           NavigationView {
+                                SchoolClassEditorContent(schoolClass: $newClass, isNew: true)
+                            }
             }
             .alert(isPresented:$presentAlertSw) {
                 getAlert()

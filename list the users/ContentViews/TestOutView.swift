@@ -33,10 +33,10 @@ struct TestOutView: View {
                         dump(resposnseSchoolClasses)
                         print("resposnseSchoolClasses")
 
-                        let cls = resposnseSchoolClasses.classes.contains {clss in
-                            clss.userGroupId == ApiHelper.clssuserGroupId
-                        }
-                        dump(cls)
+//                        let cls = resposnseSchoolClasses.classes.contains {clss in
+//                            clss.userGroupId == ApiHelper.clssuserGroupId
+//                        }
+//                        dump(cls)
 
                     } catch let error as ApiError {
                     //  FIXME: -  put in alert that will display approriate error message

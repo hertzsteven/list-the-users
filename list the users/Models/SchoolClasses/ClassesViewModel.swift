@@ -28,7 +28,7 @@ class ClassesViewModel: ObservableObject {
     
     
     func delete(_ schoolClass: SchoolClass) {
-        schoolClasses.removeAll { $0.id == schoolClass.id }
+        schoolClasses.removeAll { $0.uuid == schoolClass.uuid }
     }
     
     
@@ -42,26 +42,19 @@ class ClassesViewModel: ObservableObject {
     }
     
     
-//    static func updateSchoolClass(schoolClass: SchoolClass) async -> Void {
-//        do {
-//            _ = try await ApiManager.shared.getDataNoDecode(from: .updateaSchoolClass(id: schoolClass.id,
-//                                                                               schoolClassname: schoolClass.schoolClassname,
-//                                                                               password: "123456" ,
-//                                                                               email: schoolClass.email,
-//                                                                               firstName: schoolClass.firstName,
-//                                                                               lastName: schoolClass.lastName,
-//                                                                               notes: schoolClass.notes,
-//                                                                               locationId: schoolClass.locationId))
-//
-//        } catch let error as ApiError {
-//                //  FIXME: -  put in alert that will display approriate error message
-//            print(error.description)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
-//    }
-//
+    static func updateSchoolClass(schoolClass: SchoolClass) async -> Void {
+        do {
+            _ = try await ApiManager.shared.getDataNoDecode(from: .updateaClass(uuid: schoolClass.uuid, name: schoolClass.name, description: schoolClass.description))
+
+        } catch let error as ApiError {
+                //  FIXME: -  put in alert that will display approriate error message
+            print(error.description)
+        } catch {
+            print(error.localizedDescription)
+        }
+
+    }
+
     
     func sortedClasses(nameFilter searchStr: String = "") -> Binding<[SchoolClass]> {
          Binding<[SchoolClass]>(
@@ -79,7 +72,7 @@ class ClassesViewModel: ObservableObject {
              },
              set: { schoolClasses in
                  for schoolClass in schoolClasses {
-                     if let index = self.schoolClasses.firstIndex(where: { $0.id == schoolClass.id }) {
+                     if let index = self.schoolClasses.firstIndex(where: { $0.uuid == schoolClass.uuid }) {
                          self.schoolClasses[index] = schoolClass
                      }
                  }

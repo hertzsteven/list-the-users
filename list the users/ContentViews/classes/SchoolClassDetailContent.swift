@@ -42,10 +42,10 @@ struct SchoolClassDetailContent: View {
                     
                     Task {
                         do {
-//                            let response = try await ApiManager.shared.getDataNoDecode(from: .deleteaSchoolClass(id: schoolClass.id))
-//                            dump(response)
+                            let response = try await ApiManager.shared.getDataNoDecode(from: .deleteaClass(uuid: schoolClass.uuid))
+                            dump(response)
                             print("break")
-//                            classesViewModel.delete(schoolClass)
+                            classesViewModel.delete(schoolClass)
                         } catch let error as ApiError {
                                 //  FIXME: -  put in alert that will display approriate error message
                             print(error.description)

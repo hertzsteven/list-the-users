@@ -15,8 +15,8 @@ struct list_the_usersApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TestOutView()
-//            TabBarController()
+//            TestOutView()
+            TabBarController()
 //            UserListContent(newUser: User.makeDefault())
                 .environmentObject(usersViewModel)
                 .environmentObject(classDetailViewModel)
