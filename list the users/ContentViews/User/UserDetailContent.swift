@@ -19,9 +19,6 @@ struct UserDetailContent: View {
     
     
     
-//    @State private var isPickingSymbol = false
-    
-    
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -30,41 +27,20 @@ struct UserDetailContent: View {
 
  
     var body: some View {
-        Form{
-//            Section {
-//                HStack {
-//                    TextField("New User", text: $user.username)
-//                        .font(.title2)
-//                }
-//                .padding([.top, .bottom], 8)
+        Form {
                 TextField("First Name", text: $user.firstName )
                     .padding([.top, .bottom], 8)
-//                    .textFieldStyle(.roundedBorder)
-                
                 TextField("Last Name", text: $user.lastName )
- 
                     .padding([.top, .bottom], 8)
-//               TextField("Location", text: $user.locationId )
                 TextField("Location", value: $user.locationId, formatter: formatter)
                     .padding([.top, .bottom], 8)
-//                TextField("ID", text: $user.id )
-//                    .padding([.top, .bottom], 8)
                 TextField("Notes", text: $user.notes )
                     .padding([.top, .bottom], 8)
-//                TextField("Modified", text: $user.modified )
-//                    .padding([.top, .bottom], 8)
-//                TextField("device count", text: $user.deviceCount )
-//                    .padding([.top, .bottom], 8)
                 TextField("email", text: $user.email )
                     .padding([.top, .bottom], 8)
-//                 Text("Something")
-//                    .fontWeight(.bold)
-                
-//            }
             .onAppear {
 
             }
- 
             
             if !isNew {
                 Button(role: .destructive, action: {
@@ -93,27 +69,12 @@ struct UserDetailContent: View {
             }
         }
 
-
-
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
     }
     
-//    var body: some View {
-//        VStack(spacing:15) {
-//            TextField("Hello, \(user.username)!")
-//            TextField("First Name: \(user.firstName)")
-//            TextField("Last Name: \(user.lastName)")
-//            TextField("Location: \(user.locationId)")
-//            TextField("ID: \(user.id)")
-//            TextField("Notes: \(user.notes)")
-//            TextField("Modified: \(user.modified)")
-//            TextField("device count: \(user.deviceCount)")
-//            TextField("email: \(user.email)")
-//        }Field
-//
-//    }
+
 }
 
 //struct UserDetailContent_Previews: PreviewProvider {

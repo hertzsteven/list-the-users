@@ -15,6 +15,8 @@ struct TestOutView: View {
                 print("getting the students")
                 Task {
                     do {
+                        let x = try await ApiManager.shared.getDataNoDecode(from: .createaClass(name: "New class name", description: "created from testoutview", locationId: "1"))
+                        
                         let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: ApiHelper.classuuid))
                         dump(classDetailResponse)
                         

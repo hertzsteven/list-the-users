@@ -202,8 +202,46 @@ private extension ApiManager {
             }
             """
             request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
-        }
+            
+        case .createaClass(let name, let description, let locationId):
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
+             request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
+             request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
+           
+            let bodyString = """
+            {
+               "name": "\(name)",
+               "description": "\(description)",
+               "locationId": "\(locationId)"
+             }
+            """
+            request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
+        
+        case .updateaClass(let uuid, let name, let description):
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
+             request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
+             request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
+           
+            let bodyString = """
+            {
+               "name": "\(name)",
+               "description": "\(description)",
+              }
+            """
+            request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
+        
+            
+        case .deleteaClass(uuid: let uuid):
+            
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
+            request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
+
+            
+         }
         
         return request
+        
+        
     }
 }

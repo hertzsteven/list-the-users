@@ -10,15 +10,15 @@ import Foundation
 
 struct SchoolClassResponse: Codable {
     let code: Int
-    let classes: [SchoolClass]
+    var classes: [SchoolClass]
         
 }
 
 struct SchoolClass: Codable, Identifiable , Hashable {
-    let uuid:         String
-    let name:         String
-    let description:  String
-    let userGroupId:  Int
+    var uuid:         String
+    var name:         String
+    var description:  String
+    var userGroupId:  Int
     var id: String {
         uuid
     }

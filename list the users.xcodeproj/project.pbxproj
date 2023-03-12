@@ -33,6 +33,7 @@
 		46E56DBD2996B42500CB2512 /* SchoolClassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DBC2996B42500CB2512 /* SchoolClassResponse.swift */; };
 		46E76A0929BB9AEF00A85466 /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E76A0829BB9AEF00A85466 /* ClassesViewModel.swift */; };
 		46E76A0B29BBAA2C00A85466 /* SchoolListContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E76A0A29BBAA2C00A85466 /* SchoolListContent.swift */; };
+		46E76A0F29BE05F300A85466 /* SchoolClassDetailContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E76A0E29BE05F300A85466 /* SchoolClassDetailContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		46E56DBC2996B42500CB2512 /* SchoolClassResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolClassResponse.swift; sourceTree = "<group>"; };
 		46E76A0829BB9AEF00A85466 /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
 		46E76A0A29BBAA2C00A85466 /* SchoolListContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolListContent.swift; sourceTree = "<group>"; };
+		46E76A0E29BE05F300A85466 /* SchoolClassDetailContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolClassDetailContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +98,8 @@
 		46336708299528F900CF5EA3 /* ContentViews */ = {
 			isa = PBXGroup;
 			children = (
-				46584FCB2993E1040025F539 /* UserListContent.swift */,
-				46E76A0A29BBAA2C00A85466 /* SchoolListContent.swift */,
-				463367062995251000CF5EA3 /* UserEditorContent.swift */,
-				463366FF299426A900CF5EA3 /* UserDetailContent.swift */,
+				46E76A0C29BE05BD00A85466 /* User */,
+				46E76A0D29BE05DE00A85466 /* classes */,
 				4633670129942D2C00CF5EA3 /* TabBarController.swift */,
 				46E56DB02995E1C000CB2512 /* TestOutView.swift */,
 			);
@@ -239,6 +239,25 @@
 			path = SchoolClassDetail;
 			sourceTree = "<group>";
 		};
+		46E76A0C29BE05BD00A85466 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				46584FCB2993E1040025F539 /* UserListContent.swift */,
+				463367062995251000CF5EA3 /* UserEditorContent.swift */,
+				463366FF299426A900CF5EA3 /* UserDetailContent.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		46E76A0D29BE05DE00A85466 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				46E76A0A29BBAA2C00A85466 /* SchoolListContent.swift */,
+				46E76A0E29BE05F300A85466 /* SchoolClassDetailContent.swift */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -325,6 +344,7 @@
 				46E56DB12995E1C000CB2512 /* TestOutView.swift in Sources */,
 				46336700299426A900CF5EA3 /* UserDetailContent.swift in Sources */,
 				46E76A0B29BBAA2C00A85466 /* SchoolListContent.swift in Sources */,
+				46E76A0F29BE05F300A85466 /* SchoolClassDetailContent.swift in Sources */,
 				46E56DB42996977A00CB2512 /* AuthenticateReturnObjct.swift in Sources */,
 				46584FE92993F0C40025F539 /* ApiError.swift in Sources */,
 				46584FDF2993ECD50025F539 /* UsersViewModel.swift in Sources */,
