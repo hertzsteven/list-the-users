@@ -20,6 +20,7 @@ struct TabBarController : View {
                 }
 
             SchoolListContent(newClass: SchoolClass.makeDefault())
+//                .toolbar(.visible, for: .tabBar)
                 .tabItem {
                     Image(systemName: "phone.arrow.up.right")
                     Text("Outgoing")

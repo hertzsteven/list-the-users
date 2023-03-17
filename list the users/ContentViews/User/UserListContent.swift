@@ -24,7 +24,7 @@ struct UserListContent: View {
         	
     var body: some View {
         NavigationView {
-            Section{
+            Section {
                 List(usersViewModel.sortedUsers(lastNameFilter: searchText)) { $theUser in
                     NavigationLink {
                         UserEditorContent(user: $theUser)
@@ -48,32 +48,32 @@ struct UserListContent: View {
 
             }
             .toolbar {
-                        ToolbarItem {
-                            Button {
-                                newUser = User.makeDefault()
-                                 isAddingNewUser = true
-                            } label: {
-                                Image(systemName: "plus")
-                            }
-                        }
+                ToolbarItem {
+                    Button {
+                        newUser = User.makeDefault()
+                        isAddingNewUser = true
+                    } label: {
+                        Image(systemName: "plus")
                     }
+                }
+            }
             
-                    .sheet(isPresented: $isAddingNewUser) {
-                        NavigationView {
-                            UserEditorContent( user: $newUser, isNew: true)
-                        }
-                    }
-                    .alert(isPresented:$presentAlertSw) {
-                        getAlert()
-                    }
-//                    .onAppear {
-//                        try usersViewModel.loadData()
-//                    }
-                    .task {
-                        print("🚘 In innerTask")
-
-                    }
-                    
+            .sheet(isPresented: $isAddingNewUser) {
+                NavigationView {
+                    UserEditorContent( user: $newUser, isNew: true)
+                }
+            }
+            .alert(isPresented:$presentAlertSw) {
+                getAlert()
+            }
+                //                    .onAppear {
+                //                        try usersViewModel.loadData()
+                //                    }
+            .task {
+                print("🚘 In innerTask")
+                
+            }
+            
         }
         .task {
             print("🚘 In outer task")
@@ -86,10 +86,6 @@ struct UserListContent: View {
                         let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: ApiHelper.classuuid))
                         self.classDetailViewModel.students = classDetailResponse.class.students
                         self.usersAreLoaded.toggle()
-                        
-                            //                                dump(resposnse)
-                            //                                print("break")
-                        
                     } catch let error as ApiError {
                         print(error.description)
                         presentAlertSw.toggle()

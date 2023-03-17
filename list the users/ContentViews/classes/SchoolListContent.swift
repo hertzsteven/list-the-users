@@ -26,10 +26,12 @@ struct SchoolListContent: View {
     
     var body: some View {
         NavigationView {
+            
             Section{
                 List(classesViewModel.sortedClasses(nameFilter: searchText)) { $theClass in
                     NavigationLink {
                         SchoolClassEditorContent(schoolClass: $theClass)
+//                            .toolbar(.hidden, for: .tabBar)
                     } label: {
                         HStack {
                             Label("\(theClass.name) \(theClass.description)", systemImage: "person.circle")
@@ -46,6 +48,7 @@ struct SchoolListContent: View {
                 
                 .navigationTitle("🏘 Classes")
             }
+            
             .toolbar {
                 ToolbarItem {
                     Button {
@@ -91,6 +94,7 @@ struct SchoolListContent: View {
                 
             }
         }
+
     }
     
     func getAlert() -> Alert {
@@ -99,8 +103,9 @@ struct SchoolListContent: View {
 }
 
 
-    //struct UserListContentView_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        UserListContent(newUser: User.makeDefault())
-    //    }
-    //}
+    struct SchoolListContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            SchoolListContent(newClass: SchoolClass.makeDefault())
+
+        }
+    }
