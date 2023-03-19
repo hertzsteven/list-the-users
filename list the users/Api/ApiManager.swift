@@ -51,7 +51,6 @@ final class ApiManager {
         return respnseOfNetworkCall
     }
       
-      
     func getData<D: Decodable>(from endpoint: ApiEndpoint) async throws -> D {
         
         let request = try createRequest(from: endpoint)
@@ -101,6 +100,13 @@ final class ApiManager {
         let data = try encoder.encode(body)
         let response: NetworkResponse = try await session.upload(for: request, from: data)
         return try decoder.decode(D.self, from: response.data)
+    }
+    
+    //  MARK: -  Helper Function
+    
+    fileprivate func FormatIntArrayForCommaDelimitedString(this intArray: Array<Int>) -> String {
+        let arrayString       = intArray.map { "\($0)" }
+        return arrayString.joined(separator: ", ")
     }
 }
 
@@ -211,7 +217,7 @@ private extension ApiManager {
                  "firstName": "\(firstName)",
                  "lastName": "\(lastName)",
                  "memberOf": [
-                    \(groups)
+                    \(FormatIntArrayForCommaDelimitedString(this: groupIds))
                  ],
                  "notes": "\(notes)",
                  "locationId": \(locationId)
@@ -277,6 +283,29 @@ private extension ApiManager {
             request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
             request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
                         
+        
+        case .assignToClass(let uuid, let students, let teachers):
+            
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
+            request.addValue("3", forHTTPHeaderField: "X-Server-Protocol-Version")
+            request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            
+            
+            
+            let bodyString = """
+             {
+                 "students": [
+                    \(FormatIntArrayForCommaDelimitedString(this: students))
+                 ],
+                 "teachers": [
+                    \(FormatIntArrayForCommaDelimitedString(this: teachers))
+                 ]
+             }
+             """
+            print(bodyString)
+            request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
+            
+            
         }
         
         return request

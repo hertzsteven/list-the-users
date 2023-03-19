@@ -82,9 +82,10 @@ enum PersonType {
 
 struct SchoolClassEditorContent: View {
     
+    @State var selectedStudentsSaved:   Array<Int> = []
     
-    @State var selectedStudents: Array<Int> = []
-    @State var selectedTeachers: Array<Int> = []
+    @State var selectedStudents:        Array<Int> = []
+    @State var selectedTeachers:        Array<Int> = []
     
 
 //    @State var restoredUUIDSet:  Array<UUID> = []
@@ -125,10 +126,34 @@ struct SchoolClassEditorContent: View {
     }
     
     fileprivate func saveSelectedStudents() {
+        
+        // see if any added or deleted
+        let selectedStudentsRemoved = Set(selectedStudentsSaved).subtracting(Set(selectedStudents))
+        let selectedStudentsAdded   = Set(selectedStudents).subtracting(Set(selectedStudentsSaved))
+        
+        if !selectedStudentsRemoved.isEmpty {
+            // remove the group from the student
+            
+            // get what groups are there now
+            // remove this one
+            // save update the student
+            
+            selectedStudentsSaved = selectedStudents  // save as new starting point
+        }
+        
+        if !selectedStudentsAdded.isEmpty {
+            // do the api assign users to class
+            
+            selectedStudentsSaved = selectedStudents  // save as new starting point
+        }
+        
+        
+        
         do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(Array(selectedStudents))
             UserDefaults.standard.set(data, forKey: selectedStudentsKey)
+            selectedStudentsSaved = selectedStudents
         } catch {
             print("Failed to save Set<UUID> to UserDefaults:", error)
         }
@@ -152,6 +177,7 @@ struct SchoolClassEditorContent: View {
              do {
                  let decoder = JSONDecoder()
                  selectedStudents = try decoder.decode([Int].self, from: data)
+                 selectedStudentsSaved = selectedStudents
                  print("Restored Set<Int>:", selectedStudents)
              } catch {
                  print("Failed to decode Set<UUID> from UserDefaults:", error)

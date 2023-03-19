@@ -12,17 +12,21 @@ struct TestOutView: View {
         VStack(spacing: 12) {
             Text("I am over here")
             Button {
-                print("getting the students")
+                 print("getting the students")
                 Task {
                     do {
+                        
+                        let z = try await ApiManager.shared.getDataNoDecode(from: .assignToClass(uuid: "3c0945a1-679d-4e0b-b70c-ad8aaa4481de", students: [6,48], teachers: [2]))
+                         dump(z)
+
                         let id =  47
                         let locationId = 0
                         let email =  ""
                         let username =  "xxx_apjgkjkjgjgi_user2"
                         let firstName =  "Jeremy"
                         let lastName =  "Stei"
-                        let groupIds:Array<Int>  =  []
-                        let notes =  "change5"
+                        let groupIds:Array<Int>  =  [1,5]
+                        let notes =  "change6"
                         let y = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: id,
                                                                                                  username: username,
                                                                                                  password: "",
