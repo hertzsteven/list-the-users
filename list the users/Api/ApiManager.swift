@@ -181,11 +181,41 @@ private extension ApiManager {
             request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
             
     
-        case .updateaUser(let id, let username, let password, let email, let firstName, let lastName,let notes, let locationId):
+        case .updateaUser(let id, let username, let password, let email, let firstName, let lastName,let notes, let locationId, let groupIds):
+            let nbrs : [Int]    = []
+//            let nbrs : [Int]    = [1]
+//            let nbrs : [Int]    = [1,5]
+            let nbrString       = nbrs.map { "\($0)" }
+//            let joined          = ns.joined(separator: ", ")
+
+//            let n = ["1","5"]
+//            let o = [""]
+
+            let grp = nbrString.joined(separator: ", ")
+//            let grp = "1,5"
             request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
              request.addValue("1", forHTTPHeaderField: "X-Server-Protocol-Version")
              request.addValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
-           
+
+            
+              let bodyString = """
+              {
+                 "username": "\(username)",
+                 "password": "\(password)",
+                 "email": "\(email)",
+                 "firstName": "\(firstName)",
+                 "lastName": "\(lastName)",
+                 "memberOf": [
+                    \(grp)
+                 ],
+                 "notes": "\(notes)",
+                 "locationId": \(locationId)
+              }
+              """
+            
+   
+            
+            /*
             let bodyString = """
             {
                "username": "\(username)",
@@ -201,6 +231,8 @@ private extension ApiManager {
                "locationId": \(locationId)
             }
             """
+            */
+            
             request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
             
         case .createaClass(let name, let description, let locationId):

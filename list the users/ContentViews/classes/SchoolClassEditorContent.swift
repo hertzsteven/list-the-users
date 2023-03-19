@@ -394,6 +394,8 @@ struct SchoolClassEditorContent: View {
 
 struct StudentTeacherListView: View {
     
+    let teacherGroup = 3
+    
     @EnvironmentObject var usersViewModel: UsersViewModel
     @EnvironmentObject var classDetailViewModel: ClassDetailViewModel
 
@@ -411,7 +413,9 @@ struct StudentTeacherListView: View {
                 .foregroundColor(.blue)
                 .padding([.bottom])
             if personType == PersonType.student {
-                ForEach(usersViewModel.users) { student in
+                ForEach(usersViewModel.users.filter({ usr in
+                    !usr.groupIds.contains([teacherGroup])
+                })) { student in
                     HStack {
                         Text("\(student.firstName) \(student.lastName)")
                         Spacer()

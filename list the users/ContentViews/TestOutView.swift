@@ -15,6 +15,25 @@ struct TestOutView: View {
                 print("getting the students")
                 Task {
                     do {
+                        let id =  47
+                        let locationId = 0
+                        let email =  ""
+                        let username =  "xxx_apjgkjkjgjgi_user2"
+                        let firstName =  "Jeremy"
+                        let lastName =  "Stei"
+                        let groupIds =  "[2]"
+                        let notes =  "change5"
+                        let y = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: id,
+                                                                                                 username: username,
+                                                                                                 password: "",
+                                                                                                 email: email,
+                                                                                                 firstName: firstName,
+                                                                                                 lastName: lastName,
+                                                                                                 notes: notes,
+                                                                                                 locationId: locationId,
+                                                                                                 groupIds: groupIds))
+                        dump(y)
+                        
                         let x = try await ApiManager.shared.getDataNoDecode(from: .createaClass(name: "New class name", description: "created from testoutview", locationId: "1"))
                         
                         let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: ApiHelper.classuuid))

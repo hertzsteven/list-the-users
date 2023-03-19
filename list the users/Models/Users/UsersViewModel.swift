@@ -50,7 +50,9 @@ class UsersViewModel: ObservableObject {
                                                                                firstName: user.firstName,
                                                                                lastName: user.lastName,
                                                                                notes: user.notes,
-                                                                               locationId: user.locationId))
+                                                                               locationId: user.locationId,
+                                                                               groupIds: "[2]"))
+//                                                                              groupIds: user.groupIds))
              
         } catch let error as ApiError {
                 //  FIXME: -  put in alert that will display approriate error message
