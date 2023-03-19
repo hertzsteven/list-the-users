@@ -21,7 +21,7 @@ struct TestOutView: View {
                         let username =  "xxx_apjgkjkjgjgi_user2"
                         let firstName =  "Jeremy"
                         let lastName =  "Stei"
-                        let groupIds =  "[2]"
+                        let groupIds =  [1,5]
                         let notes =  "change5"
                         let y = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: id,
                                                                                                  username: username,

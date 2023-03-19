@@ -24,7 +24,7 @@ enum ApiEndpoint {
     case getSchoolClasses
     case addUser(username: String, password: String, email: String, firstName: String, lastName: String, locationId: Int)
     case deleteaUser(id: Int)
-    case updateaUser(id: Int, username: String, password: String, email: String, firstName: String, lastName: String, notes: String, locationId: Int, groupIds: String)
+    case updateaUser(id: Int, username: String, password: String, email: String, firstName: String, lastName: String, notes: String, locationId: Int, groupIds: Array<Int>)
     case updateaClass(uuid: String, name: String, description: String)
     case createaClass(name: String, description: String, locationId: String)
     case deleteaClass(uuid: String)
