@@ -26,6 +26,7 @@
 		46584FE72993F0960025F539 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46584FE62993F0960025F539 /* ApiHelper.swift */; };
 		46584FE92993F0C40025F539 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46584FE82993F0C40025F539 /* ApiError.swift */; };
 		46584FEB2993F10F0025F539 /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46584FEA2993F10F0025F539 /* ApiEndpoint.swift */; };
+		469420F229C7ED67004B8CB4 /* ExtensionsAndMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469420F129C7ED67004B8CB4 /* ExtensionsAndMore.swift */; };
 		46BD34E329BE1E9E002A8395 /* SchoolClassEditorContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BD34E229BE1E9E002A8395 /* SchoolClassEditorContent.swift */; };
 		46BD34E529BE236D002A8395 /* CreateaClassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BD34E429BE236D002A8395 /* CreateaClassResponse.swift */; };
 		46E56DB12995E1C000CB2512 /* TestOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E56DB02995E1C000CB2512 /* TestOutView.swift */; };
@@ -60,6 +61,7 @@
 		46584FE62993F0960025F539 /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
 		46584FE82993F0C40025F539 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		46584FEA2993F10F0025F539 /* ApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoint.swift; sourceTree = "<group>"; };
+		469420F129C7ED67004B8CB4 /* ExtensionsAndMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsAndMore.swift; sourceTree = "<group>"; };
 		46BD34E229BE1E9E002A8395 /* SchoolClassEditorContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolClassEditorContent.swift; sourceTree = "<group>"; };
 		46BD34E429BE236D002A8395 /* CreateaClassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateaClassResponse.swift; sourceTree = "<group>"; };
 		46E56DB02995E1C000CB2512 /* TestOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOutView.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		46584FBD2993E1040025F539 = {
 			isa = PBXGroup;
 			children = (
+				469420F129C7ED67004B8CB4 /* ExtensionsAndMore.swift */,
 				46584FC82993E1040025F539 /* list the users */,
 				46584FC72993E1040025F539 /* Products */,
 			);
@@ -359,6 +362,7 @@
 				461D21CC299D89DD008B7BD2 /* ClassDetailViewModel.swift in Sources */,
 				461D21CE299D8A64008B7BD2 /* Student.swift in Sources */,
 				46584FEB2993F10F0025F539 /* ApiEndpoint.swift in Sources */,
+				469420F229C7ED67004B8CB4 /* ExtensionsAndMore.swift in Sources */,
 				46BD34E329BE1E9E002A8395 /* SchoolClassEditorContent.swift in Sources */,
 				46BD34E529BE236D002A8395 /* CreateaClassResponse.swift in Sources */,
 			);

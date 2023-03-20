@@ -9,7 +9,7 @@
 import Foundation
 struct UserDetailResponse: Codable {
     let code: Int
-    let user: JSUser    
+    var user: JSUser
 }
 
 
@@ -20,7 +20,10 @@ struct JSUser: Codable {
     let lastName:       String
     let username:       String
     var notes:          String
+    var groupIds:       Array<Int>
     let teacherGroups:  Array<Int>
+    let email:          String
+    let locationId:     Int
     var title:          String  { firstName }
     var picName:        String  { username  }
     var identity:       String  {String(id) }

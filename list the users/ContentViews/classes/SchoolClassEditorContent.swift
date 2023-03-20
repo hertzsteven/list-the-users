@@ -133,18 +133,78 @@ struct SchoolClassEditorContent: View {
         
         if !selectedStudentsRemoved.isEmpty {
             // remove the group from the student
+//            dump(schoolClass.userGroupId)
+//            print("the group code is \(schoolClass.userGroupId)")
+//            print(selectedStudentsRemoved.first)
+//            print(selectedStudentsRemoved.first)
+//            dump(usersViewModel.users.first(where: { usr in
+//                usr.id == selectedStudentsRemoved.first
+//            }))
             
-            // get what groups are there now
-            // remove this one
-            // save update the student
+            for studentToDelete in selectedStudentsRemoved {
+                //get the student
+//                guard var stndt = usersViewModel.users.first(where: { usr in
+//                    usr.id == selectedStudentsRemoved.first
+//                }) else {fatalError("dkd")}
+//                guard let idx = stndt.groupIds.firstIndex(of: schoolClass.userGroupId) else { fatalError("no match") }
+//                stndt.groupIds.remove(at: idx)
+//
+//
+//                print(stndt.groupIds)
+//                print(stndt.groupIds)
+                
+                Task {
+                    do {
+                        // get the user that we need to update
+                        var userToUpdate: UserDetailResponse = try await ApiManager.shared.getData(from: .getaUser(id: studentToDelete))
+                      
+                        // eliminate the duplicates
+                        var groupIdsNoDups = userToUpdate.user.groupIds.removingDuplicates()
+                        
+                        // remove the group being deleted from
+                        guard let idx = groupIdsNoDups.firstIndex(of: schoolClass.userGroupId) else { fatalError("no match") }
+                        groupIdsNoDups.remove(at: idx)
+                        userToUpdate.user.groupIds = groupIdsNoDups
+                        
+                    
+                        print(userToUpdate.user.groupIds)
+  
+                        let stndt = userToUpdate.user
+                        let responseFromUpdatingUser = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: stndt.id,
+                                                                                      username: stndt.username,
+                                                                                      password: "123456",
+                                                                                      email: stndt.email, firstName: stndt.firstName, lastName: stndt.lastName, notes: stndt.notes, locationId: stndt.locationId, groupIds: stndt.groupIds))
+//                        dump(responseFromUpdatingUser)
+                    } catch let error as ApiError {
+                            //  FIXME: -  put in alert that will display approriate error message
+                        print(error.description)
+                    }
+                    
+                }
+                
+            }
             
             selectedStudentsSaved = selectedStudents  // save as new starting point
-        }
+
+            
+         }
         
         if !selectedStudentsAdded.isEmpty {
             // do the api assign users to class
-            
-            selectedStudentsSaved = selectedStudents  // save as new starting point
+            Task {
+                do {
+                    let z = try await ApiManager.shared.getDataNoDecode(from: .assignToClass(uuid: schoolClass.uuid, students: selectedStudents, teachers: [2]))
+                    dump(z)
+                    
+                    
+                } catch let error as ApiError {
+                        //  FIXME: -  put in alert that will display approriate error message
+                    print(error.description)
+                }
+                
+                
+                selectedStudentsSaved = selectedStudents  // save as new starting point
+            }
         }
         
         
@@ -172,17 +232,36 @@ struct SchoolClassEditorContent: View {
     
         
     fileprivate func restoreSavedItems() {
+        
+        Task {
+            do {
+                
+                let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: schoolClass.uuid))
+                self.classDetailViewModel.students = classDetailResponse.class.students
+                selectedStudents = classDetailResponse.class.students.map({ std in
+                    std.id
+                })
+                selectedStudentsSaved = selectedStudents
+                dump(classDetailResponse.class.students)
+                print(classDetailResponse.class.students)
+                
+            } catch let error as ApiError {
+                    //  FIXME: -  put in alert that will display approriate error message
+                print(error.description)
+            }
+        }
+
          
-         if let data = UserDefaults.standard.data(forKey: selectedStudentsKey) {
-             do {
-                 let decoder = JSONDecoder()
-                 selectedStudents = try decoder.decode([Int].self, from: data)
-                 selectedStudentsSaved = selectedStudents
-                 print("Restored Set<Int>:", selectedStudents)
-             } catch {
-                 print("Failed to decode Set<UUID> from UserDefaults:", error)
-             }
-         }
+//         if let data = UserDefaults.standard.data(forKey: selectedStudentsKey) {
+//             do {
+//                 let decoder = JSONDecoder()
+//                 selectedStudents = try decoder.decode([Int].self, from: data)
+//                 selectedStudentsSaved = selectedStudents
+//                 print("Restored Set<Int>:", selectedStudents)
+//             } catch {
+//                 print("Failed to decode Set<UUID> from UserDefaults:", error)
+//             }
+//         }
          
          if let data = UserDefaults.standard.data(forKey: selectedTeachersKey) {
              do {
