@@ -12,6 +12,7 @@ class ClassDetailViewModel: ObservableObject {
     @Published  var name: String = ""
     @Published  var description: String = ""
     @Published var students = [Student]()
+    @Published var teachers = [Student]()
     @Published var isLoading = false
 
      

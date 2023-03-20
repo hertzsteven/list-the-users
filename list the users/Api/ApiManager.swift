@@ -187,7 +187,7 @@ private extension ApiManager {
             request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
             
     
-        case .updateaUser(let id, let username, let password, let email, let firstName, let lastName,let notes, let locationId, let groupIds):
+        case .updateaUser(let id, let username, let password, let email, let firstName, let lastName,let notes, let locationId, let groupIds, let teacherGroups):
 /*
             let nbrs : [Int]    = []
 //            let nbrs : [Int]    = [1]
@@ -201,8 +201,8 @@ private extension ApiManager {
             let grp = nbrString.joined(separator: ", ")
 */
 //            let nbrs : [Int]    = []
-            let groupIdsString       = groupIds.map { "\($0)" }
-            let groups = groupIdsString.joined(separator: ", ")
+//            let groupIdsString       = groupIds.map { "\($0)" }
+//            let groups = groupIdsString.joined(separator: ", ")
 
             request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
              request.addValue("1", forHTTPHeaderField: "X-Server-Protocol-Version")
@@ -219,6 +219,9 @@ private extension ApiManager {
                  "memberOf": [
                     \(FormatIntArrayForCommaDelimitedString(this: groupIds))
                  ],
+                "teacher": [
+                    \(FormatIntArrayForCommaDelimitedString(this: teacherGroups))
+                ],
                  "notes": "\(notes)",
                  "locationId": \(locationId)
               }

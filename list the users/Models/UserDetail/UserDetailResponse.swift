@@ -21,7 +21,7 @@ struct JSUser: Codable {
     let username:       String
     var notes:          String
     var groupIds:       Array<Int>
-    let teacherGroups:  Array<Int>
+    var teacherGroups:  Array<Int>
     let email:          String
     let locationId:     Int
     var title:          String  { firstName }

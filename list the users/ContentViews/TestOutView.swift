@@ -26,6 +26,7 @@ struct TestOutView: View {
                         let firstName =  "Jeremy"
                         let lastName =  "Stei"
                         let groupIds:Array<Int>  =  [1,5]
+                        let teacherGroups:Array<Int>  =  [3]
                         let notes =  "change6"
                         let y = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: id,
                                                                                                  username: username,
@@ -35,7 +36,8 @@ struct TestOutView: View {
                                                                                                  lastName: lastName,
                                                                                                  notes: notes,
                                                                                                  locationId: locationId,
-                                                                                                 groupIds: groupIds))
+                                                                                               groupIds: groupIds,
+                                                                                               teacherGroups: teacherGroups))
                         dump(y)
                         
                         let x = try await ApiManager.shared.getDataNoDecode(from: .createaClass(name: "New class name", description: "created from testoutview", locationId: "1"))

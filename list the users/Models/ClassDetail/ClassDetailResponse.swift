@@ -31,6 +31,7 @@ struct ClassDetailResponse: Codable {
 //            public let photo: URL
 //        }
         let students: [Student]
+        let teachers: [Student]
         let teacherCount: Int
         let deviceCount: Int
     }

@@ -14,6 +14,7 @@ struct User: Codable, Identifiable, Hashable {
     var email:          String
     var groupIds:       Array<Int>
     var groups:         Array<String>
+    var teacherGroups:  Array<Int>
     var firstName:      String
     var lastName:       String
     var username:       String
@@ -44,7 +45,7 @@ extension User {
 //        print("Total seconds from the start of today: \(totalSeconds)")
 
         
-        return User(id: totalSeconds, locationId: ApiHelper.globalLocationId, deviceCount: 0, email: "", groupIds: [], groups: [""], firstName: "", lastName: "", username: "", notes: "", modified: "")
+        return User(id: totalSeconds, locationId: ApiHelper.globalLocationId, deviceCount: 0, email: "", groupIds: [], groups: [""], teacherGroups: [], firstName: "", lastName: "", username: "", notes: "", modified: "")
     }
 }
 

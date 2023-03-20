@@ -51,7 +51,8 @@ class UsersViewModel: ObservableObject {
                                                                                lastName: user.lastName,
                                                                                notes: user.notes,
                                                                                locationId: user.locationId,
-                                                                               groupIds: user.groupIds))
+                                                                               groupIds: user.groupIds,
+                                                                               teacherGroups: user.teacherGroups))
 //                                                                              groupIds: user.groupIds))
              
         } catch let error as ApiError {

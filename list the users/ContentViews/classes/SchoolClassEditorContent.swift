@@ -83,6 +83,8 @@ enum PersonType {
 struct SchoolClassEditorContent: View {
     
     @State var selectedStudentsSaved:   Array<Int> = []
+    @State var selectedTeachersSaved:   Array<Int> = []
+
     
     @State var selectedStudents:        Array<Int> = []
     @State var selectedTeachers:        Array<Int> = []
@@ -127,29 +129,29 @@ struct SchoolClassEditorContent: View {
     
     fileprivate func saveSelectedStudents() {
         
-        // see if any added or deleted
+            // see if any added or deleted
         let selectedStudentsRemoved = Set(selectedStudentsSaved).subtracting(Set(selectedStudents))
         let selectedStudentsAdded   = Set(selectedStudents).subtracting(Set(selectedStudentsSaved))
         
         if !selectedStudentsRemoved.isEmpty {
             
             for studentToDelete in selectedStudentsRemoved {
-                //get the student
+                    //get the student
                 
                 Task {
                     do {
-                        // get the user that we need to update
+                            // get the user that we need to update
                         var userToUpdate: UserDetailResponse = try await ApiManager.shared.getData(from: .getaUser(id: studentToDelete))
                         
-                        // eliminate the duplicates
+                            // eliminate the duplicates
                         var groupIdsNoDups = userToUpdate.user.groupIds.removingDuplicates()
                         
-                        // remove the group being deleted from
+                            // remove the group being deleted from
                         guard let idx = groupIdsNoDups.firstIndex(of: schoolClass.userGroupId) else { fatalError("no match") }
                         groupIdsNoDups.remove(at: idx)
                         userToUpdate.user.groupIds = groupIdsNoDups
                         
-                        // Update the user
+                            // Update the user
                         let responseFromUpdatingUser = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: userToUpdate.user.id,
                                                                                                                       username:     userToUpdate.user.username,
                                                                                                                       password:     "123456",
@@ -158,7 +160,8 @@ struct SchoolClassEditorContent: View {
                                                                                                                       lastName:     userToUpdate.user.lastName,
                                                                                                                       notes:        userToUpdate.user.notes,
                                                                                                                       locationId:   userToUpdate.user.locationId,
-                                                                                                                      groupIds:     userToUpdate.user.groupIds))
+                                                                                                                      groupIds:     userToUpdate.user.groupIds,
+                                                                                                                      teacherGroups: userToUpdate.user.teacherGroups))
                     } catch let error as ApiError {
                             //  FIXME: -  put in alert that will display approriate error message
                         print(error.description)
@@ -167,29 +170,27 @@ struct SchoolClassEditorContent: View {
             }
             
             selectedStudentsSaved = selectedStudents  // save as new starting point
-
             
-         }
+        }
         
         if !selectedStudentsAdded.isEmpty {
-            // do the api assign users to class
+                // do the api assign users to class
             Task {
                 do {
-                    let z = try await ApiManager.shared.getDataNoDecode(from: .assignToClass(uuid: schoolClass.uuid, students: selectedStudents, teachers: [2]))
-//                    dump(z)
+                    let z = try await ApiManager.shared.getDataNoDecode(from: .assignToClass(uuid: schoolClass.uuid, students: selectedStudents, teachers: []))
+                        //                    dump(z)
                     
                 } catch let error as ApiError {
                         //  FIXME: -  put in alert that will display approriate error message
                     print(error.description)
                 }
                 
-                
                 selectedStudentsSaved = selectedStudents  // save as new starting point
             }
         }
         
         
-        
+    /*
         do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(Array(selectedStudents))
@@ -198,33 +199,105 @@ struct SchoolClassEditorContent: View {
         } catch {
             print("Failed to save Set<UUID> to UserDefaults:", error)
         }
+     */
+        
     }
     
     fileprivate func saveSelectedTeachers() {
         
-        do {
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(Array(selectedTeachers))
-            UserDefaults.standard.set(data, forKey: selectedTeachersKey)
-        } catch {
-            print("Failed to save Set<UUID> to UserDefaults:", error)
+        // see if any added or deleted
+        let selectedTeachersRemoved  = Set(selectedTeachersSaved).subtracting(Set(selectedTeachers))
+        let selectedTeachersAdded    = Set(selectedTeachers).subtracting(Set(selectedTeachersSaved))
+        
+        if !selectedTeachersRemoved.isEmpty {
+            
+            for teacherToDelete in selectedTeachersRemoved {
+                    //get the teacher
+                
+                Task {
+                    do {
+                            // get the user that we need to update
+                        var userToUpdate: UserDetailResponse = try await ApiManager.shared.getData(from: .getaUser(id: teacherToDelete))
+                        
+                            // eliminate the duplicates
+                        var groupIdsNoDups = userToUpdate.user.teacherGroups.removingDuplicates()
+                        
+                            // remove the group being deleted from
+                        guard let idx = groupIdsNoDups.firstIndex(of: schoolClass.userGroupId) else { fatalError("no match") }
+                        groupIdsNoDups.remove(at: idx)
+                        userToUpdate.user.teacherGroups = groupIdsNoDups
+                        
+                            // Update the user
+                        let responseFromUpdatingUser = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: userToUpdate.user.id,
+                                                                                                                      username:     userToUpdate.user.username,
+                                                                                                                      password:     "123456",
+                                                                                                                      email:        userToUpdate.user.email,
+                                                                                                                      firstName:    userToUpdate.user.firstName,
+                                                                                                                      lastName:     userToUpdate.user.lastName,
+                                                                                                                      notes:        userToUpdate.user.notes,
+                                                                                                                      locationId:   userToUpdate.user.locationId,
+                                                                                                                      groupIds:     userToUpdate.user.groupIds,
+                                                                                                                      teacherGroups: userToUpdate.user.teacherGroups))
+                    } catch let error as ApiError {
+                            //  FIXME: -  put in alert that will display approriate error message
+                        print(error.description)
+                    }
+                }
+            }
+            
+            selectedTeachersSaved = selectedTeachers  // save as new starting point
+            
         }
+        
+        if !selectedTeachersAdded.isEmpty {
+                // do the api assign users to class
+            Task {
+                do {
+                    let z = try await ApiManager.shared.getDataNoDecode(from: .assignToClass(uuid: schoolClass.uuid, students: [], teachers: selectedTeachers))
+                        //                    dump(z)
+                    
+                } catch let error as ApiError {
+                        //  FIXME: -  put in alert that will display approriate error message
+                    print(error.description)
+                }
+                
+                selectedTeachersSaved = selectedTeachers  // save as new starting point
+            }
+        }
+        
     }
-    
         
     fileprivate func restoreSavedItems() {
         
+      /**
+       - only students in the view model
+       */
         Task {
             do {
-                
+                // get the class info
                 let classDetailResponse: ClassDetailResponse = try await ApiManager.shared.getData(from: .getStudents(uuid: schoolClass.uuid))
+                
+                // retreive the students into View Model
                 self.classDetailViewModel.students = classDetailResponse.class.students
+                self.classDetailViewModel.teachers = classDetailResponse.class.teachers
+                
+                // put the ids into selected students array
                 selectedStudents = classDetailResponse.class.students.map({ std in
                     std.id
                 })
+                
+                // initialize the saved list
                 selectedStudentsSaved = selectedStudents
-                dump(classDetailResponse.class.students)
-                print(classDetailResponse.class.students)
+                
+                selectedTeachers = classDetailResponse.class.teachers.map({ std in
+                    std.id
+                })
+                
+                // initialize the saved list
+                selectedTeachersSaved = selectedTeachers
+                
+                dump(classDetailResponse.class.teachers)
+                print(classDetailResponse.class.teachers)
                 
             } catch let error as ApiError {
                     //  FIXME: -  put in alert that will display approriate error message
@@ -244,15 +317,15 @@ struct SchoolClassEditorContent: View {
 //             }
 //         }
          
-         if let data = UserDefaults.standard.data(forKey: selectedTeachersKey) {
-             do {
-                 let decoder = JSONDecoder()
-                 selectedTeachers = try decoder.decode([Int].self, from: data)
-                 print("Restored Set<UUID>:", selectedTeachers)
-             } catch {
-                 print("Failed to decode Set<UUID> from UserDefaults:", error)
-             }
-         }
+//         if let data = UserDefaults.standard.data(forKey: selectedTeachersKey) {
+//             do {
+//                 let decoder = JSONDecoder()
+//                 selectedTeachers = try decoder.decode([Int].self, from: data)
+//                 print("Restored Set<UUID>:", selectedTeachers)
+//             } catch {
+//                 print("Failed to decode Set<UUID> from UserDefaults:", error)
+//             }
+//         }
      }
      
      
@@ -287,6 +360,32 @@ struct SchoolClassEditorContent: View {
              }
              .listStyle(.inset)
             }
+            
+            if !selectedTeachers.isEmpty {
+                List {
+                    Section {
+                        ForEach(selectedTeachers.map({ id in
+                            usersViewModel.users.first(where: { $0.id == id })!
+                        }), id: \.id) { teacher in
+                            Text("\(teacher.firstName) \(teacher.lastName)")
+                        }
+                        .onDelete { offsets in
+                            for offSet in offsets {
+                                selectedTeachers.remove(at: offSet)
+                            }
+                            saveSelectedTeachers()
+                        }
+                    } header: {
+                        Text("Teachers")
+                            //                                .bold()
+                            .font(.title3)
+                    } footer: {
+                        Text("Number of teachers: \(selectedTeachers.count)")
+                    }.headerProminence(.standard)
+                }
+                .listStyle(.inset)
+            }
+
             
 //            if !selectedTeachers.isEmpty {
 //                List {
@@ -494,8 +593,7 @@ struct StudentTeacherListView: View {
     
     var body: some View {
         List {
-            Text("Select the students for this class")
-
+            Text(personType == PersonType.student ? "Select the students for this class" : "Select the teachers for this class" )
                 .foregroundColor(.blue)
                 .padding([.bottom])
             if personType == PersonType.student {
@@ -522,27 +620,32 @@ struct StudentTeacherListView: View {
                     }
                 }
             }
-//            else {
-//                ForEach(Teacherx.teachers) { teacher in
-//                    HStack {
-//                        Text("\(teacher.firstName) \(teacher.lastName)")
-//                        Spacer()
-//                        if selectedTeachers.contains(teacher.id) {
-//                            Image(systemName: "checkmark")
-//                                .foregroundColor(.blue)
-//                        }
-//                    }
-//                    .contentShape(Rectangle())
-//                    .onTapGesture {
-//                        if let idx = selectedTeachers.firstIndex(of: teacher.id) {
-//                            selectedTeachers.remove(at: idx)
-//                        } else {
-//                            selectedTeachers.append(teacher.id)
-//                        }
-//                    }
-//                }
-//            }
+            else {
+                ForEach(usersViewModel.users.filter({ usr in
+                    usr.groupIds.contains([teacherGroup])
+                })) { teacher in
+                    HStack {
+                        Text("\(teacher.firstName) \(teacher.lastName)")
+                        Spacer()
+                        if selectedTeachers.contains(teacher.id) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        
+                        if let idx = selectedTeachers.firstIndex(of: teacher.id) {
+                            selectedTeachers.remove(at: idx)
+                            
+                       } else {
+                            selectedTeachers.append(teacher.id)
+                        }
+                    }
+                }
+            }
         }
+    
         .navigationBarTitle("Select", displayMode: .inline)
         .navigationBarItems(trailing: Button(action: {
             presentationMode.wrappedValue.dismiss()
