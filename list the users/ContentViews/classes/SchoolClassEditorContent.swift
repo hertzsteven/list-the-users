@@ -132,32 +132,15 @@ struct SchoolClassEditorContent: View {
         let selectedStudentsAdded   = Set(selectedStudents).subtracting(Set(selectedStudentsSaved))
         
         if !selectedStudentsRemoved.isEmpty {
-            // remove the group from the student
-//            dump(schoolClass.userGroupId)
-//            print("the group code is \(schoolClass.userGroupId)")
-//            print(selectedStudentsRemoved.first)
-//            print(selectedStudentsRemoved.first)
-//            dump(usersViewModel.users.first(where: { usr in
-//                usr.id == selectedStudentsRemoved.first
-//            }))
             
             for studentToDelete in selectedStudentsRemoved {
                 //get the student
-//                guard var stndt = usersViewModel.users.first(where: { usr in
-//                    usr.id == selectedStudentsRemoved.first
-//                }) else {fatalError("dkd")}
-//                guard let idx = stndt.groupIds.firstIndex(of: schoolClass.userGroupId) else { fatalError("no match") }
-//                stndt.groupIds.remove(at: idx)
-//
-//
-//                print(stndt.groupIds)
-//                print(stndt.groupIds)
                 
                 Task {
                     do {
                         // get the user that we need to update
                         var userToUpdate: UserDetailResponse = try await ApiManager.shared.getData(from: .getaUser(id: studentToDelete))
-                      
+                        
                         // eliminate the duplicates
                         var groupIdsNoDups = userToUpdate.user.groupIds.removingDuplicates()
                         
@@ -166,22 +149,21 @@ struct SchoolClassEditorContent: View {
                         groupIdsNoDups.remove(at: idx)
                         userToUpdate.user.groupIds = groupIdsNoDups
                         
-                    
-                        print(userToUpdate.user.groupIds)
-  
-                        let stndt = userToUpdate.user
-                        let responseFromUpdatingUser = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: stndt.id,
-                                                                                      username: stndt.username,
-                                                                                      password: "123456",
-                                                                                      email: stndt.email, firstName: stndt.firstName, lastName: stndt.lastName, notes: stndt.notes, locationId: stndt.locationId, groupIds: stndt.groupIds))
-//                        dump(responseFromUpdatingUser)
+                        // Update the user
+                        let responseFromUpdatingUser = try await ApiManager.shared.getDataNoDecode(from: .updateaUser(id: userToUpdate.user.id,
+                                                                                                                      username:     userToUpdate.user.username,
+                                                                                                                      password:     "123456",
+                                                                                                                      email:        userToUpdate.user.email,
+                                                                                                                      firstName:    userToUpdate.user.firstName,
+                                                                                                                      lastName:     userToUpdate.user.lastName,
+                                                                                                                      notes:        userToUpdate.user.notes,
+                                                                                                                      locationId:   userToUpdate.user.locationId,
+                                                                                                                      groupIds:     userToUpdate.user.groupIds))
                     } catch let error as ApiError {
                             //  FIXME: -  put in alert that will display approriate error message
                         print(error.description)
                     }
-                    
                 }
-                
             }
             
             selectedStudentsSaved = selectedStudents  // save as new starting point
@@ -194,8 +176,7 @@ struct SchoolClassEditorContent: View {
             Task {
                 do {
                     let z = try await ApiManager.shared.getDataNoDecode(from: .assignToClass(uuid: schoolClass.uuid, students: selectedStudents, teachers: [2]))
-                    dump(z)
-                    
+//                    dump(z)
                     
                 } catch let error as ApiError {
                         //  FIXME: -  put in alert that will display approriate error message
