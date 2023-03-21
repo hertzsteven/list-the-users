@@ -68,14 +68,15 @@ struct UserListContent: View {
               ToolbarItem(placement: .navigationBarLeading , content: {
                 Menu {
                     Picker("Pick a location", selection: $pickerSelection) {
-                        ForEach(0..<2) { index in
-                            Text(" \(index) ")
+                        ForEach(0..<appWorkViewModel.locations.count) { index in
+                            Text(appWorkViewModel.locations[index].name)
                                 .tag(index)
                         }
                   }
+                    .padding()
 //                    .pickerStyle(.wheel)
                 } label: {
-                  Text(appWorkViewModel.selectedLocation.name)
+                    Text(appWorkViewModel.locations[pickerSelection].name).padding()
                 }
                 .pickerStyle(.menu)
                 
@@ -98,6 +99,10 @@ struct UserListContent: View {
                 
             }
             
+        }
+        .onAppear{
+            dump(appWorkViewModel.locations)
+            print(appWorkViewModel.locations)
         }
         .task {
             print("🚘 In outer task")

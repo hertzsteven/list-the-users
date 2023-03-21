@@ -30,23 +30,6 @@ struct TabBarController : View {
           Text("Outgoing")
         }
     }
-    .onAppear {
-      print("in tabView")
-      Task {
-        do {
-            // get the location into
-          let locationsResponse: LocationsResponse = try await ApiManager.shared.getData(from: .getLocations)
-          appWorkViewModel.locations        = locationsResponse.locations
-          let selectedLocation = appWorkViewModel.locations[1]
-          appWorkViewModel.selectedLocation = selectedLocation
-        } catch let error as ApiError {
-            //  FIXME: -  put in alert that will display approriate error message
-          print(error.description)
-        }
-        
-        print("in task afetr do")
-      }
-    }
   }
 }
 

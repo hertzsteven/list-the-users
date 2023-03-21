@@ -34,10 +34,11 @@ struct SchoolListContent: View {
                         SchoolClassEditorContent(schoolClass: $theClass)
 //                            .toolbar(.hidden, for: .tabBar)
                     } label: {
-                        HStack {
-                            Label("\(theClass.name) \(theClass.description)", systemImage: "person.circle")
-                                .labelStyle(CustomLabelStyle())
-                            Spacer()
+                        VStack{
+                            Text(theClass.name)
+                                .font(.headline)
+                            Text(theClass.description)
+                                .font(.subheadline)
                         }
                         .foregroundColor(Color.primary)
                         .font(.body)
