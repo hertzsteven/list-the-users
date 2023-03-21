@@ -65,14 +65,14 @@ class UsersViewModel: ObservableObject {
     }
     
     
-  func sortedUsers(lastNameFilter searchStr: String = "", selectedLocation: Location) -> Binding<[User]> {
+  func sortedUsers(lastNameFilter searchStr: String = "", selectedLocationID: Int) -> Binding<[User]> {
          Binding<[User]>(
             get: {
                 self.users
                     .sorted { $0.lastName < $1.lastName }
                
                     .filter({ usr in
-                      usr.locationId == selectedLocation.id
+                      usr.locationId == selectedLocationID
                     })
                     .filter {
                         if searchStr.isEmpty  {

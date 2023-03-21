@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct UserListContent: View {
+    
+    @State private var pickerSelection = 0
   
     @State private var selection = "Red"
     let colors = ["Red", "Green", "Blue", "Black", "Tartan"]
@@ -30,7 +32,7 @@ struct UserListContent: View {
     var body: some View {
         NavigationView {
             Section {
-              List(usersViewModel.sortedUsers(lastNameFilter: searchText, selectedLocation: appWorkViewModel.selectedLocation)) { $theUser in
+              List(usersViewModel.sortedUsers(lastNameFilter: searchText, selectedLocationID: pickerSelection)) { $theUser in
                     NavigationLink {
                         UserEditorContent(user: $theUser)
                     } label: {
@@ -65,11 +67,13 @@ struct UserListContent: View {
             .toolbar {
               ToolbarItem(placement: .navigationBarLeading , content: {
                 Menu {
-                  Picker("Pick a location", selection: $appWorkViewModel.selectedLocation) {
-                    ForEach(appWorkViewModel.locations) {
-                      Text($0.name)
-                    }
+                    Picker("Pick a location", selection: $pickerSelection) {
+                        ForEach(0..<2) { index in
+                            Text(" \(index) ")
+                                .tag(index)
+                        }
                   }
+//                    .pickerStyle(.wheel)
                 } label: {
                   Text(appWorkViewModel.selectedLocation.name)
                 }
