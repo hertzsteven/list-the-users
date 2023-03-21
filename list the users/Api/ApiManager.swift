@@ -308,6 +308,11 @@ private extension ApiManager {
             print(bodyString)
             request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
             
+        case .getLocations :
+            request.addValue(ApiHelper.authorizationCode, forHTTPHeaderField: "Authorization")
+          request.addValue("2", forHTTPHeaderField: "X-Server-Protocol-Version")
+            request.addValue("hash=e9bed0e4643c2be63f77439ba63d0691", forHTTPHeaderField: "Cookie")
+
             
         }
         

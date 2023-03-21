@@ -15,6 +15,10 @@ struct TestOutView: View {
                  print("getting the students")
                 Task {
                     do {
+                      
+                      let locationsResponse: LocationsResponse = try await ApiManager.shared.getData(from: .getLocations)
+                      dump(locationsResponse)
+                      print(locationsResponse)
                         
                         let z = try await ApiManager.shared.getDataNoDecode(from: .assignToClass(uuid: "3c0945a1-679d-4e0b-b70c-ad8aaa4481de", students: [6,48], teachers: [2]))
                          dump(z)

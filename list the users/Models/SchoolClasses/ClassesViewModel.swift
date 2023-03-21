@@ -61,6 +61,9 @@ class ClassesViewModel: ObservableObject {
             get: {
                 self.schoolClasses
                     .sorted { $0.name < $1.name }
+                    .filter({ theClass in
+                      theClass.locationId == ApiHelper.globalLocationId || ApiHelper.globalLocationId == 100
+                    })
 
                     .filter {
                         if searchStr.isEmpty  {

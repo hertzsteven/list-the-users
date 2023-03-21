@@ -29,6 +29,7 @@ enum ApiEndpoint {
     case createaClass(name: String, description: String, locationId: String)
     case deleteaClass(uuid: String)
     case assignToClass(uuid: String, students: Array<Int>, teachers: Array<Int>)
+    case getLocations
 }
 
 extension ApiEndpoint {
@@ -60,6 +61,8 @@ extension ApiEndpoint {
             return "/classes/\(uuid)"
         case .assignToClass(uuid: let uuid, students: _, teachers: _):
             return "/classes/\(uuid)/users"
+        case .getLocations:
+           return "/locations"
         }
     }
     

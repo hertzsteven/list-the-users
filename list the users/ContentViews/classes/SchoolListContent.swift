@@ -18,6 +18,7 @@ struct SchoolListContent: View {
     @EnvironmentObject var usersViewModel: UsersViewModel
     @EnvironmentObject var classDetailViewModel: ClassDetailViewModel
     @EnvironmentObject var classesViewModel: ClassesViewModel
+    @EnvironmentObject var appWorkViewModel: AppWorkViewModel
     
     @State var newClass: SchoolClass
     @State private var isAddingNewSchoolClass = false

@@ -12,6 +12,7 @@ struct list_the_usersApp: App {
     @StateObject var usersViewModel         = UsersViewModel()
     @StateObject var classDetailViewModel   = ClassDetailViewModel()
     @StateObject var classesViewModel       = ClassesViewModel()
+    @StateObject var appWorkViewModel       = AppWorkViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -21,6 +22,7 @@ struct list_the_usersApp: App {
                 .environmentObject(usersViewModel)
                 .environmentObject(classDetailViewModel)
                 .environmentObject(classesViewModel)
+                .environmentObject(appWorkViewModel)
         }
     }
 }

@@ -9,6 +9,10 @@ import SwiftUI
 
 
 struct UserListContent: View {
+  
+    @State private var selection = "Red"
+    let colors = ["Red", "Green", "Blue", "Black", "Tartan"]
+
     
     @State private var searchText = ""
     
@@ -16,6 +20,7 @@ struct UserListContent: View {
     
     @EnvironmentObject var usersViewModel: UsersViewModel
     @EnvironmentObject var classDetailViewModel: ClassDetailViewModel
+    @EnvironmentObject var appWorkViewModel: AppWorkViewModel
     
     @State var newUser: User
     @State private var isAddingNewUser = false
@@ -25,7 +30,7 @@ struct UserListContent: View {
     var body: some View {
         NavigationView {
             Section {
-                List(usersViewModel.sortedUsers(lastNameFilter: searchText)) { $theUser in
+              List(usersViewModel.sortedUsers(lastNameFilter: searchText, selectedLocation: appWorkViewModel.selectedLocation)) { $theUser in
                     NavigationLink {
                         UserEditorContent(user: $theUser)
                     } label: {
@@ -56,6 +61,21 @@ struct UserListContent: View {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .toolbar {
+              ToolbarItem(placement: .navigationBarLeading , content: {
+                Menu {
+                  Picker("Pick a location", selection: $appWorkViewModel.selectedLocation) {
+                    ForEach(appWorkViewModel.locations) {
+                      Text($0.name)
+                    }
+                  }
+                } label: {
+                  Text(appWorkViewModel.selectedLocation.name)
+                }
+                .pickerStyle(.menu)
+                
+              })
             }
             
             .sheet(isPresented: $isAddingNewUser) {
